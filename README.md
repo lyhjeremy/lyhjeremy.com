@@ -1,6 +1,16 @@
-# lyhjeremy.github.io
+# lyhjeremy.com
 
-Portfolio landing page at [lyhjeremy.github.io](https://lyhjeremy.github.io/). Plain HTML and CSS, one Python build script, self-contained: no framework, no third-party requests, no analytics. The profile README at [lyhjeremy/lyhjeremy](https://github.com/lyhjeremy/lyhjeremy) links here.
+Portfolio landing page at [lyhjeremy.com](https://lyhjeremy.com/). Plain HTML and CSS, one Python build script, self-contained: no framework, no third-party requests, no analytics. The profile README at [lyhjeremy/lyhjeremy](https://github.com/lyhjeremy/lyhjeremy) links here.
+
+## Domain setup
+
+Only this page lives on the custom domain. Every project card links to its own site at `lyhjeremy.github.io/<slug>/`, and those sites, their backends and their repos are unchanged. The domain is attached to this repo alone (the `CNAME` file), which is why it does not pull the project sites along with it. A custom domain on the `lyhjeremy.github.io` repo would have moved all of them.
+
+- DNS at Spaceship: four A records for `@` (185.199.108.153 to 185.199.111.153), a CNAME `www` to `lyhjeremy.github.io`, and the `_github-pages-challenge-lyhjeremy` TXT record that keeps the domain verified to this GitHub account.
+- `lyhjeremy.github.io/` holds a one-file redirect to here. Its history up to the move is intact, and this repo was created from that history on 2026-09-24.
+- `SITE` and `REPO` at the top of `build.py` set the canonical URL and the footer's source link.
+
+To go back to `lyhjeremy.github.io` (for example, before letting the domain lapse), follow [REVERT.md](REVERT.md). Do it before the domain expires, not after.
 
 ## How the page is built
 

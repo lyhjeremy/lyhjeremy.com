@@ -6,7 +6,9 @@ ROOT = pathlib.Path(__file__).parent
 data = json.loads((ROOT / "projects.json").read_text())
 ed = data["editorial"]
 GH = "https://github.com/lyhjeremy/"
-PAGES = "https://lyhjeremy.github.io/"
+PAGES = "https://lyhjeremy.github.io/"  # project sites stay on github.io
+SITE = "https://lyhjeremy.com/"  # where this page is served; revert.sh flips it back
+REPO = "lyhjeremy.com"  # the repo holding this page
 e = html.escape
 CARD, MED = "assets/shots/card/", "assets/shots/med/"
 NAMES = {slug: name for sec in data["sections"] for slug, name, _ in sec["projects"]}
@@ -73,6 +75,8 @@ page = f'''<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jeremy Lee</title>
 <meta name="description" content="Data scientist and UCLA Anderson MSBA. {n} live projects across generative AI, statistical modeling and machine learning.">
+<link rel="canonical" href="{SITE}">
+<meta property="og:url" content="{SITE}">
 <link rel="stylesheet" href="assets/site.css">
 <script>
 try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}}catch(err){{}}
@@ -140,7 +144,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     </div>
     <div class="legal">
       <span>Screenshots are captures of the live sites. No analytics, no third-party requests.</span>
-      <span><a href="{GH}lyhjeremy.github.io">Source for this page</a></span>
+      <span><a href="{GH}{REPO}">Source for this page</a></span>
     </div>
   </div>
 </footer>
