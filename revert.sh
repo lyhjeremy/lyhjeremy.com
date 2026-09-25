@@ -32,7 +32,7 @@ git config user.name "Jeremy Lee"; git config user.email "lyhjeremy@gmail.com"
 git fetch -q "https://github.com/$OWNER/$FACADE.git" main
 git rm -rq .
 git checkout FETCH_HEAD -- .
-git rm -q CNAME
+git rm -qf CNAME
 perl -pi -e 's#^SITE = "https://lyhjeremy\.com/"#SITE = "https://lyhjeremy.github.io/"#; s#^REPO = "lyhjeremy\.com"#REPO = "lyhjeremy.github.io"#' build.py
 grep -q '^SITE = "https://lyhjeremy.github.io/"' build.py || { echo "SITE line not updated; stopping before any push"; exit 1; }
 grep -q '^REPO = "lyhjeremy.github.io"' build.py || { echo "REPO line not updated; stopping before any push"; exit 1; }
