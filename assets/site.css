@@ -44,6 +44,8 @@ h1,h2,h3,h4,p{margin:0}
 .nav button{background:none;border:0;color:var(--text);opacity:.85;font:inherit;cursor:pointer;padding:0}
 .nav button[hidden]{display:none}
 @media (max-width:700px){.nav .wrap{gap:16px;overflow-x:auto}}
+@media (max-width:600px){.nav .opt{display:none}}
+@media (max-width:380px){.nav .wrap{gap:14px}.nav .opt-sm{display:none}}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;padding:44px 0 36px}
