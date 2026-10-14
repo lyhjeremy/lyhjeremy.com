@@ -178,6 +178,11 @@
       "title": "Apps and tools",
       "projects": [
         [
+          "fourier-pen",
+          "Fourier Pen",
+          "Turns any picture or text prompt into one continuous line and animates a chain of rotating arrows drawing it: a complex Fourier series you can watch, read and export as a wallpaper or video. Runs in the browser; the pen never lifts."
+        ],
+        [
           "leave-time-optimizer",
           "Leave Time Optimizer",
           "A routing tool that computes when to depart to arrive on time, using the Google Maps API."
@@ -337,5 +342,8 @@
         }
       ]
     }
+  },
+  "site_overrides": {
+    "fourier-pen": "https://fourier-pen.vercel.app/"
   }
 }

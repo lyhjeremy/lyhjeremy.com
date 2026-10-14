@@ -12,6 +12,11 @@ REPO = "lyhjeremy.com"  # the repo holding this page
 e = html.escape
 CARD, MED = "assets/shots/card/", "assets/shots/med/"
 NAMES = {slug: name for sec in data["sections"] for slug, name, _ in sec["projects"]}
+# Projects hosted somewhere other than lyhjeremy.github.io/<slug>/ (e.g. Vercel). The writeup
+# lives at <site>/overview/ in every case.
+SITE_OVERRIDES = data.get("site_overrides", {})
+def site(slug):
+    return SITE_OVERRIDES.get(slug, f"{PAGES}{slug}/")
 
 TONES = {"leeway": "blue", "world-record-half-lives": "green", "marathon-heat-tax": "orange",
          "cantonese-learner-v2": "pink", "cellar-scanner": "pink", "menu-decoder": "orange",
@@ -23,7 +28,7 @@ STAT_TONES = ["blue", "green", "orange", "purple", "pink"]
 
 def links(slug, code=False, short=False):
     a, b = ("Site", "Writeup") if short else ("Open the site", "Read the writeup")
-    out = [f'<a class="chev" href="{PAGES}{slug}/">{a}</a>', f'<a class="chev" href="{PAGES}{slug}/overview/">{b}</a>']
+    out = [f'<a class="chev" href="{site(slug)}">{a}</a>', f'<a class="chev" href="{site(slug)}overview/">{b}</a>']
     if code:
         out.append(f'<a class="chev" href="{GH}{slug}">Code</a>')
     return "".join(out)
@@ -32,7 +37,7 @@ def card(slug, eyebrow, headline, text="", *, tone="", big=False, stat=None, img
     c = " ".join(x for x in ["card", tone, "big" if big else "", cls] if x)
     st = f'<div class="stat">{e(stat)}</div>' if stat else ""
     p = f'<p>{e(text)}</p>' if text else ""
-    return (f'<article class="{c}"><a class="pic" href="{PAGES}{slug}/">'
+    return (f'<article class="{c}"><a class="pic" href="{site(slug)}">'
             f'<img class="shot" src="{img}{slug}.jpg" alt="{e(headline)}" loading="lazy" width="720" height="450"></a>'
             f'<div class="body"><p class="eyebrow">{e(eyebrow)}</p>{st}'
             f'<h3><a href="{GH}{slug}">{e(headline)}</a></h3>{p}'
@@ -49,7 +54,7 @@ ST = ed["stories"]; m = ST["main"]
 stories = (card(m["slug"], NAMES[m["slug"]], m["headline"], m["text"], tone="dark-purple", img=CARD)
            + "".join(card(x["slug"], NAMES[x["slug"]], x["headline"], x["text"], tone=TONES[x["slug"]], img=CARD) for x in ST["side"]))
 stats = "".join(
-    f'<a class="{STAT_TONES[i % 5]}" href="{PAGES}{t["slug"]}/"><span class="v">{e(t["stat"])}</span>'
+    f'<a class="{STAT_TONES[i % 5]}" href="{site(t["slug"])}"><span class="v">{e(t["stat"])}</span>'
     f'<span class="l">{e(t["label"])}</span></a>' for i, t in enumerate(ed["numbers"]["tiles"]))
 
 groups = "".join(
