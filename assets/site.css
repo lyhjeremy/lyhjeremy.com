@@ -4,9 +4,11 @@
   --bg:#fff; --bg-2:#f5f5f7; --card:#fff; --card-line:rgba(0,0,0,.08);
   --text:#1d1d1f; --text-2:#6e6e73; --line:#d2d2d7;
   --blue:#0066cc; --nav:rgba(251,251,253,.85); --nav-line:rgba(0,0,0,.08);
-  --shadow:0 10px 28px rgba(0,0,0,.10);
-  --c-blue:#0071e3; --c-green:#1f8a5b; --c-orange:#e8590c; --c-purple:#6e4fd8; --c-pink:#d6336c; --c-teal:#0b8f9c;
-  --t-blue:#e2eeff; --t-green:#ddf3e7; --t-orange:#ffeadb; --t-purple:#eae2fc; --t-pink:#fce0ec; --t-teal:#dcf3f6;
+  --shadow:0 8px 24px rgba(0,0,0,.08);
+  /* One accent. The tone classes in build.py stay, but all resolve to it, and card bodies are plain. */
+  --accent:#0066cc;
+  --c-blue:var(--accent); --c-green:var(--accent); --c-orange:var(--accent); --c-purple:var(--accent); --c-pink:var(--accent); --c-teal:var(--accent);
+  --t-blue:var(--card); --t-green:var(--card); --t-orange:var(--card); --t-purple:var(--card); --t-pink:var(--card); --t-teal:var(--card);
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
   --mono:"SF Mono",Menlo,Consolas,monospace;
   --max:1120px; --r:16px;
@@ -17,8 +19,9 @@
   --text:#f5f5f7; --text-2:#a1a1a6; --line:#3a3a3c;
   --blue:#409cff; --nav:rgba(0,0,0,.85); --nav-line:rgba(255,255,255,.1);
   --shadow:0 10px 28px rgba(0,0,0,.6);
-  --c-blue:#64b5ff; --c-green:#5fd695; --c-orange:#ffa860; --c-purple:#bda7ff; --c-pink:#ff7fb0; --c-teal:#6fdce6;
-  --t-blue:#1c1c1e; --t-green:#1c1c1e; --t-orange:#1c1c1e; --t-purple:#1c1c1e; --t-pink:#1c1c1e; --t-teal:#1c1c1e;
+  --accent:#409cff;
+  --c-blue:var(--accent); --c-green:var(--accent); --c-orange:var(--accent); --c-purple:var(--accent); --c-pink:var(--accent); --c-teal:var(--accent);
+  --t-blue:var(--card); --t-green:var(--card); --t-orange:var(--card); --t-purple:var(--card); --t-pink:var(--card); --t-teal:var(--card);
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -48,31 +51,31 @@ h1,h2,h3,h4,p{margin:0}
 @media (max-width:380px){.nav .wrap{gap:14px}.nav .opt-sm{display:none}}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;padding:44px 0 36px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:56px 0 40px}
 .hero h1{font-size:clamp(40px,6vw,64px);line-height:1.02;font-weight:700;letter-spacing:-.025em;color:var(--text)}
-.hero .sub{font-size:19px;line-height:1.3;color:var(--text-2);margin-top:8px;max-width:44ch}
+.hero .sub{font-size:21px;line-height:1.3;color:var(--text-2);margin-top:12px;max-width:40ch}
 .hero .sub b{color:var(--text);font-weight:600}
 .cta{display:flex;gap:20px;margin-top:14px;font-size:15px;flex-wrap:wrap}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.chip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--t);color:var(--c);border:1px solid transparent}
-:root[data-theme="dark"] .chip{border-color:var(--c);background:transparent}
-.chip:hover{text-decoration:none;filter:brightness(.96)}
+.chip{font-size:12px;font-weight:500;padding:5px 11px;border-radius:999px;background:var(--bg-2);color:var(--text);border:1px solid var(--card-line)}
+.chip:hover{text-decoration:none;border-color:var(--accent);color:var(--accent)}
 .hero .mosaic{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.hero .mosaic img{aspect-ratio:16/10;object-fit:cover;border-radius:10px;box-shadow:var(--shadow);border:6px solid #fff;background:#fff}
+.hero .mosaic{gap:12px}
+.hero .mosaic img{aspect-ratio:16/10;object-fit:cover;border-radius:12px;border:1px solid var(--card-line);background:#fff;padding:6px}
 @media (max-width:860px){.hero{grid-template-columns:1fr;padding:32px 0 24px}.hero .mosaic{display:none}}
 
 /* sections */
-.section{padding:44px 0 0}
-.band{background:var(--bg-2);padding:40px 0 48px;margin-top:48px}
+.section{padding:56px 0 0}
+.band{background:var(--bg-2);padding:48px 0 56px;margin-top:56px}
 .band .section{padding:0}
 .section-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.section-eyebrow{width:100%;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:-6px}
+.section-eyebrow{width:100%;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:-6px;color:var(--text-2)!important}
 .section-eyebrow.blue{color:var(--c-blue)}.section-eyebrow.orange{color:var(--c-orange)}
 .section-eyebrow.purple{color:var(--c-purple)}.section-eyebrow.green{color:var(--c-green)}
-.section-head h2{font-size:28px;line-height:1.1;font-weight:700;letter-spacing:-.02em}
+.section-head h2{font-size:32px;line-height:1.1;font-weight:700;letter-spacing:-.025em}
 .section-head p{font-size:15px;color:var(--text-2)}
-.group-head{display:flex;align-items:baseline;gap:10px;margin:22px 0 10px}
-.group-head h3{font-size:15px;font-weight:600;color:var(--c,var(--text))}
+.group-head{display:flex;align-items:baseline;gap:10px;margin:28px 0 12px;padding-top:12px;border-top:1px solid var(--line)}
+.group-head h3{font-size:15px;font-weight:600;color:var(--text)}
 .group-head span{font-size:13px;color:var(--text-2)}
 
 /* grids and cards */
@@ -88,12 +91,12 @@ h1,h2,h3,h4,p{margin:0}
 .card{background:var(--card);border:1px solid var(--card-line);border-radius:var(--r);overflow:hidden;
   display:flex;flex-direction:column;min-width:0;--c:var(--text-2);--t:var(--card);
   transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
 .card>a.pic{display:block;background:#fff;padding:10px}
 .card img.shot{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;
   border:1px solid rgba(0,0,0,.10)}
 .card .body{padding:14px 16px 16px;background:var(--t);display:flex;flex-direction:column;gap:6px;flex:1}
-.card .eyebrow{font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--c)}
+.card .eyebrow{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--text-2)}
 .card h3{font-size:18px;line-height:1.2;font-weight:600;letter-spacing:-.015em}
 .card h3 a{color:var(--text)}
 .card.big h3{font-size:24px}
@@ -106,12 +109,8 @@ h1,h2,h3,h4,p{margin:0}
 .blue{--c:var(--c-blue);--t:var(--t-blue)}.green{--c:var(--c-green);--t:var(--t-green)}
 .orange{--c:var(--c-orange);--t:var(--t-orange)}.purple{--c:var(--c-purple);--t:var(--t-purple)}
 .pink{--c:var(--c-pink);--t:var(--t-pink)}.teal{--c:var(--c-teal);--t:var(--t-teal)}
-.card.dark{--t:#0b1a33;--c:#8fc3ff;border-color:transparent}
-.card.dark .body{background:linear-gradient(180deg,#0b1a33,#06101f)}
-.card.dark h3 a,.card.dark h3{color:#fff}.card.dark p{color:#b8c4d6}.card.dark .links a{color:#8fc3ff}
-.card.dark-purple{--t:#1b1240;--c:#c4b2ff;border-color:transparent}
-.card.dark-purple .body{background:linear-gradient(180deg,#1b1240,#0d0920)}
-.card.dark-purple h3 a,.card.dark-purple h3{color:#fff}.card.dark-purple p{color:#c3bde0}.card.dark-purple .links a{color:#b9a6ff}
+/* The lead and story cards used to be dark gradients; they are plain cards now. */
+.card.dark,.card.dark-purple{--c:var(--accent);--t:var(--card)}
 
 .card.wide{flex-direction:row}
 .card.wide>a.pic{flex:1.35;min-width:0;display:flex}
@@ -124,7 +123,7 @@ h1,h2,h3,h4,p{margin:0}
 /* stats */
 .stats a{display:flex;flex-direction:column;justify-content:center;padding:14px 16px;border-radius:var(--r);
   background:var(--t);border:1px solid var(--card-line);color:var(--text);min-width:0}
-.stats a:hover{text-decoration:none;transform:translateY(-3px);box-shadow:var(--shadow)}
+.stats a:hover{text-decoration:none;transform:translateY(-2px);box-shadow:var(--shadow)}
 .stats .v{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--c)}
 .stats .l{font-size:12px;line-height:1.3;color:var(--text-2);margin-top:6px}
 
