@@ -183,6 +183,11 @@
           "Turns any picture or text prompt into one continuous line and animates a chain of rotating arrows drawing it: a complex Fourier series you can watch, read and export as a wallpaper or video. Runs in the browser; the pen never lifts."
         ],
         [
+          "one-in-a-hundred",
+          "One in a Hundred",
+          "What it takes to be in the top 1%, top 10% or median of a group: 950 percentile facts from 72 sources, each graded A to D, with the full distribution drawn under every sentence. The \"$30k is the global top 1%\" claim is wrong under every definition."
+        ],
+        [
           "leave-time-optimizer",
           "Leave Time Optimizer",
           "A routing tool that computes when to depart to arrive on time, using the Google Maps API."
