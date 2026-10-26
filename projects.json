@@ -8,7 +8,7 @@
     [
      "skill-compass",
      "SkillCompass",
-     "A live skill-assessment platform: Elo-style calibration recalibrated from real quiz responses, live peer percentiles, and three LLM-backed features (resume-gap analysis, a mock-interview agent, a personalized study guide). Full-stack, $0/month infrastructure."
+     "A live skill-assessment platform: Elo-style ability scoring against calibrated item difficulty, live peer percentiles, and three LLM-backed features (resume-gap analysis, a mock-interview agent, a personalized study guide). Full-stack, $0/month infrastructure."
     ],
     [
      "leeway",
@@ -33,7 +33,7 @@
     [
      "wine-sommelier-rag",
      "Wine Sommelier RAG",
-     "Semantic search over 130k wine reviews using hybrid BM25 and dense retrieval with a cross-encoder reranker, evaluated on retrieval quality (precision and nDCG up roughly 21%)."
+     "Semantic search over the 30,000 top-scored of 130k wine reviews, using hybrid BM25 and dense retrieval with a cross-encoder reranker, evaluated on retrieval quality (precision and nDCG up roughly 21%)."
     ],
     [
      "marathon-training-agent",
@@ -60,7 +60,7 @@
     [
      "cellar-scanner",
      "Cellar Scanner",
-     "Photograph a wine label for a grounded profile and food pairings cited to real reviews; a fine-tuned Qwen2.5-1.5B LoRA guesses grape variety from a blind tasting note alone, beating Claude's zero-shot Top-1 (27.7% vs. 23.0%)."
+     "Photograph a wine label for a grounded profile and food pairings cited to real reviews; a fine-tuned Qwen2.5-1.5B LoRA guesses grape variety from a blind tasting note alone at 27.7% top-1, level with Claude zero-shot (23.0% on a different subsample, a gap within noise)."
     ],
     [
      "menu-decoder",
@@ -211,7 +211,7 @@
    "kicker": "No. 01 / applied AI",
    "accent": "oxide",
    "headline": "Skill checks scored like chess ratings",
-   "deck": "SkillCompass gives two-minute quizzes in 40-plus fields, rates them Elo-style on real response data, and returns a percentile, a knowledge map and a study plan. Runs full stack on $0 a month.",
+   "deck": "SkillCompass gives two-minute quizzes in 40-plus fields, scores them Elo-style against calibrated item difficulty, and returns a percentile, a knowledge map and a study plan. Runs full stack on $0 a month.",
    "figure": "assets/shots/skill-compass.png",
    "figcap": "SkillCompass, captured from the live site on 2026-08-23."
   },
@@ -256,9 +256,9 @@
     {
      "slug": "cellar-scanner",
      "name": "Cellar Scanner",
-     "stat": "27.7% vs 23.0%",
+     "stat": "27.7%",
      "thumb": "assets/shots/band/cellar-scanner.png",
-     "note": "a 1.5B model tuned on my laptop out-guesses Claude zero-shot at grape variety from a blind tasting note",
+     "note": "a 1.5B model tuned on my laptop matches Claude zero-shot at naming the grape from a blind tasting note",
      "short": "Snap a wine label, name the grape blind"
     },
     {
