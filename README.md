@@ -17,10 +17,10 @@ To go back to `lyhjeremy.github.io` (for example, before letting the domain laps
 `index.html` is generated. Do not edit it by hand.
 
 - `projects.json` is the content source. `sections` lists all 32 projects (slug, display name, one-line summary) in seven groups. `editorial` holds the curated front: the lead project, the four featured briefs, the fine-tuning series rows (each with `stat`, `short` headline and `note`), the three data stories and the five numbers tiles. All links derive from the slug: code at `github.com/lyhjeremy/<slug>`, site at `lyhjeremy.github.io/<slug>/`, writeup at `.../<slug>/overview/`.
-- `build.py` renders `index.html` from the JSON. `site_overrides` in the JSON maps a slug to a site URL for projects not on GitHub Pages (Fourier Pen is on Vercel); the writeup is always at `<site>overview/`. The category color maps live at the top (`TONES`, `STAT_TONES`, `GROUP_TONES`); the footer (skills, about, contact) is inline in the template. Run `python3 build.py` after any edit and commit both files.
+- `build.py` renders `index.html` from the JSON. `site_overrides` in the JSON maps a slug to a site URL for projects not on GitHub Pages (Fourier Pen is on Vercel); the writeup is always at `<site>overview/`. The category color maps live at the top (`TONES`, `STAT_TONES`, `GROUP_TONES`); the About section (experience, skills) and the footer are inline in the template. Run `python3 build.py` after any edit and commit both files.
 - `assets/site.css` is all of the styling. `tools/thumbs.py` makes card images (below).
 
-Page structure, top to bottom: sticky nav; hero (name, one-liner, category chips, a 2x3 mosaic of thumbnails); Featured (one wide SkillCompass card plus four cards); The fine-tuning series (four stat cards on a gray band); Data stories (three chart cards plus five stat tiles); All 32 projects (mini cards grouped by category, on a gray band); footer.
+Page structure, top to bottom: sticky nav; hero (name, positioning line, background line, Email/LinkedIn/GitHub buttons, category chips, a 2x3 mosaic of thumbnails); Featured (one wide SkillCompass card plus four cards); About (experience, education and four skill groups, added 2026-10-26 so a recruiter finds them without scrolling to the footer); The fine-tuning series (four stat cards on a gray band); Data stories (three chart cards plus five stat tiles); All 32 projects (mini cards grouped by category, on a gray band); a one-line contact footer.
 
 ## Images
 

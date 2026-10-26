@@ -70,7 +70,7 @@ for s in data["sections"]:
     groups = groups.replace(f'<div class="group-head {GROUP_TONES.get(s["id"], "")}"><h3>{e(s["title"])}</h3>',
                             f'<div class="group-head {GROUP_TONES.get(s["id"], "")}" id="g-{s["id"]}"><h3>{e(s["title"])}</h3>', 1)
 mosaic = "".join(f'<img src="{CARD}{s}.jpg" alt="" loading="lazy">' for s in
-                 ["marathon-heat-tax", "wine-score-inflation", "podcastify", "world-record-half-lives", "love-island-lexical-analysis", "epub-to-audiobook"])
+                 ["one-in-a-hundred", "wine-score-inflation", "fourier-pen", "world-record-half-lives", "fire-retirement-simulator", "love-island-lexical-analysis"])
 n = sum(len(s["projects"]) for s in data["sections"])
 
 page = f'''<!doctype html>
@@ -79,7 +79,7 @@ page = f'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jeremy Lee</title>
-<meta name="description" content="Data scientist and UCLA Anderson MSBA. {n} live projects across generative AI, statistical modeling and machine learning.">
+<meta name="description" content="Jeremy Lee, data scientist building applied AI and statistical models. UCLA Anderson MSBA. {n} live projects: RAG, agents, LoRA fine-tunes, survival analysis, Monte Carlo.">
 <link rel="canonical" href="{SITE}">
 <meta property="og:url" content="{SITE}">
 <link rel="stylesheet" href="assets/site.css">
@@ -95,6 +95,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <a href="#featured">Featured</a>
     <a class="opt" href="#series">Fine-tuning</a>
     <a class="opt" href="#stories">Data stories</a>
+    <a href="#about">About</a>
     <a href="#index">All projects</a>
     <a class="opt-sm" href="https://github.com/lyhjeremy">GitHub</a>
     <button type="button" id="theme-toggle" hidden aria-pressed="false">Dark</button>
@@ -105,8 +106,10 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 <header class="hero wrap">
   <div>
     <h1>Jeremy Lee</h1>
-    <p class="sub">Data scientist, UCLA Anderson MSBA. Models, decision tools and data stories: <b>{n} projects, all live.</b></p>
-    <div class="cta"><a class="chev" href="#featured">See the work</a><a class="chev" href="https://github.com/lyhjeremy">github.com/lyhjeremy</a><a class="chev" href="#colophon">About</a></div>
+    <p class="sub">Data scientist who ships applied AI. I build the model, the evaluation and the product around it: <b>{n} projects, all live.</b></p>
+    <p class="sub2">UCLA Anderson MSBA. Before that, co-founder and Chief Strategy Officer of an education business that grew to over 1,000 students.</p>
+    <div class="contact"><a class="pill primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="pill" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a><a class="pill" href="https://github.com/lyhjeremy">GitHub</a></div>
+    <div class="cta"><a class="chev" href="#featured">See the work</a><a class="chev" href="#about">Background and skills</a></div>
     <div class="chips">{chips}</div>
   </div>
   <div class="mosaic" aria-hidden="true">{mosaic}</div>
@@ -116,6 +119,24 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
   <div class="section-head"><p class="section-eyebrow blue">Selected work</p><h2>Featured</h2><p>A product, a decision tool, two data stories, a language app.</p></div>
   {lead_card}
   <div class="grid cols-4" style="margin-top:14px">{briefs}</div>
+</section>
+
+<section class="section wrap" id="about">
+  <div class="section-head"><p class="section-eyebrow">About</p><h2>Background</h2><p>Business operator first, data scientist now.</p></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><b>Co-founder and Chief Strategy Officer, Casual Ace Learning Centre</b>. Grew enrollment 5.2x to over 1,000 students across six centers.</p>
+      <p><b>MSBA, UCLA Anderson School of Management.</b> Graduate analytics coursework at Georgia Tech. BBA in Accounting and Finance, University of Hong Kong.</p>
+      <p>Outside work: 14 marathons with a 2:48 personal best in Berlin, which is where most of the running projects come from, and WSET Level 3 in wine, which explains the rest.</p>
+      <p class="about-links"><a class="pill primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="pill" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a></p>
+    </div>
+    <div class="skills">
+      <div><h4>Modeling</h4><p>scikit-learn, PyTorch, XGBoost. Regression, classification, clustering, time series, survival analysis, causal inference, A/B testing.</p></div>
+      <div><h4>GenAI and agents</h4><p>RAG (BM25, dense, cross-encoder reranking), embeddings and vector stores, LoRA fine-tuning, LLM-as-judge evals, LangChain, LangGraph, Anthropic and OpenAI APIs.</p></div>
+      <div><h4>Optimization and simulation</h4><p>Gurobi; LP, IP, QP and non-convex programs; branch-and-bound, duality, Monte Carlo.</p></div>
+      <div><h4>Data and deployment</h4><p>Python, R, SQL, Snowflake, Airflow, Spark, Tableau, Power BI. FastAPI and Streamlit apps on Render, Vercel and GitHub Pages.</p></div>
+    </div>
+  </div>
 </section>
 
 <div class="band"><section class="section wrap" id="series">
@@ -137,15 +158,8 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 
 <footer class="footer" id="colophon">
   <div class="wrap">
-    <div class="cols">
-      <div><h4>Modeling</h4><ul><li>scikit-learn, PyTorch, XGBoost</li><li>Regression, classification, clustering</li><li>Time series, neural networks</li><li>Causal inference, survival analysis</li><li>A/B testing</li></ul></div>
-      <div><h4>Optimization</h4><ul><li>Gurobi</li><li>LP / IP / QP, non-convex</li><li>Branch-and-bound, LP duality</li><li>Gradient descent</li><li>Simulation, Monte Carlo</li></ul></div>
-      <div><h4>GenAI and agents</h4><ul><li>LLM prompting, RAG, embeddings</li><li>Vector databases, fine-tuning</li><li>OpenAI and Anthropic APIs</li><li>LangChain, LangGraph</li><li>Tool use, retrieval pipelines</li></ul></div>
-      <div><h4>Data and deployment</h4><ul><li>Python, R, SQL</li><li>Snowflake, Airflow, Spark</li><li>Tableau, Power BI</li><li>Git, GitHub Pages, Streamlit</li></ul></div>
-    </div>
     <div class="about">
-      <p>Co-founder and Chief Strategy Officer at Casual Ace Learning Centre: grew enrollment 5.2x to over 1,000 students across six centers. MSBA, UCLA Anderson; BBA, University of Hong Kong. 14 marathons, Berlin personal best 2:48. WSET Level 3 in wine.</p>
-      <p><a href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a> · <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
+      <p>Jeremy Lee. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
     </div>
     <div class="legal">
       <span>Screenshots are captures of the live sites. No analytics, no third-party requests.</span>

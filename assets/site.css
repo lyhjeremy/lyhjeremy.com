@@ -140,3 +140,21 @@ h1,h2,h3,h4,p{margin:0}
 .footer code{font-family:var(--mono);background:var(--card);border:1px solid var(--card-line);padding:1px 6px;border-radius:4px;color:var(--text)}
 @media (max-width:700px){.footer .cols{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:reduce){.card,.stats a{transition:none}.card:hover,.stats a:hover{transform:none}}
+/* hero contact + about (2026-10-26) */
+.hero .sub2{font-size:16px;line-height:1.45;color:var(--text-2);margin-top:12px;max-width:52ch}
+.contact,.about-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.pill{display:inline-block;font-size:14px;font-weight:500;padding:8px 16px;border-radius:980px;border:1px solid var(--card-line);color:var(--text);background:var(--card)}
+.pill:hover{text-decoration:none;border-color:var(--accent);color:var(--accent)}
+.pill.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.pill.primary:hover{color:#fff;opacity:.9}
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:20px}
+.about-text,.skills>div{background:var(--card);border:1px solid var(--card-line);border-radius:18px;padding:22px 24px}
+.about-text p{font-size:15px;line-height:1.55;color:var(--text-2);margin:0 0 12px;max-width:60ch}
+.about-text b{color:var(--text);font-weight:600}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.skills h4{font-size:15px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.skills p{font-size:13.5px;line-height:1.5;color:var(--text-2);margin:0}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.skills{grid-template-columns:1fr}}
+/* .hero/.section shorthand padding was zeroing .wrap's side gutters on phones */
+.wrap.hero,.wrap.section{padding-left:20px;padding-right:20px}

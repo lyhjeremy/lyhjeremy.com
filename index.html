@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jeremy Lee</title>
-<meta name="description" content="Data scientist and UCLA Anderson MSBA. 32 live projects across generative AI, statistical modeling and machine learning.">
+<meta name="description" content="Jeremy Lee, data scientist building applied AI and statistical models. UCLA Anderson MSBA. 32 live projects: RAG, agents, LoRA fine-tunes, survival analysis, Monte Carlo.">
 <link rel="canonical" href="https://lyhjeremy.com/">
 <meta property="og:url" content="https://lyhjeremy.com/">
 <link rel="stylesheet" href="assets/site.css">
@@ -20,6 +20,7 @@ try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.docu
     <a href="#featured">Featured</a>
     <a class="opt" href="#series">Fine-tuning</a>
     <a class="opt" href="#stories">Data stories</a>
+    <a href="#about">About</a>
     <a href="#index">All projects</a>
     <a class="opt-sm" href="https://github.com/lyhjeremy">GitHub</a>
     <button type="button" id="theme-toggle" hidden aria-pressed="false">Dark</button>
@@ -30,17 +31,37 @@ try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.docu
 <header class="hero wrap">
   <div>
     <h1>Jeremy Lee</h1>
-    <p class="sub">Data scientist, UCLA Anderson MSBA. Models, decision tools and data stories: <b>32 projects, all live.</b></p>
-    <div class="cta"><a class="chev" href="#featured">See the work</a><a class="chev" href="https://github.com/lyhjeremy">github.com/lyhjeremy</a><a class="chev" href="#colophon">About</a></div>
+    <p class="sub">Data scientist who ships applied AI. I build the model, the evaluation and the product around it: <b>32 projects, all live.</b></p>
+    <p class="sub2">UCLA Anderson MSBA. Before that, co-founder and Chief Strategy Officer of an education business that grew to over 1,000 students.</p>
+    <div class="contact"><a class="pill primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="pill" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a><a class="pill" href="https://github.com/lyhjeremy">GitHub</a></div>
+    <div class="cta"><a class="chev" href="#featured">See the work</a><a class="chev" href="#about">Background and skills</a></div>
     <div class="chips"><a class="chip blue" href="#g-featured">Featured projects · 9</a><a class="chip orange" href="#g-applied-ai">Applied AI engineering · 4</a><a class="chip purple" href="#g-genai">Generative AI and agents · 2</a><a class="chip green" href="#g-running">Running and sports analytics · 8</a><a class="chip pink" href="#g-language">Language and NLP · 2</a><a class="chip teal" href="#g-consumer">Consumer and finance · 2</a><a class="chip blue" href="#g-tools">Apps and tools · 5</a></div>
   </div>
-  <div class="mosaic" aria-hidden="true"><img src="assets/shots/card/marathon-heat-tax.jpg" alt="" loading="lazy"><img src="assets/shots/card/wine-score-inflation.jpg" alt="" loading="lazy"><img src="assets/shots/card/podcastify.jpg" alt="" loading="lazy"><img src="assets/shots/card/world-record-half-lives.jpg" alt="" loading="lazy"><img src="assets/shots/card/love-island-lexical-analysis.jpg" alt="" loading="lazy"><img src="assets/shots/card/epub-to-audiobook.jpg" alt="" loading="lazy"></div>
+  <div class="mosaic" aria-hidden="true"><img src="assets/shots/card/one-in-a-hundred.jpg" alt="" loading="lazy"><img src="assets/shots/card/wine-score-inflation.jpg" alt="" loading="lazy"><img src="assets/shots/card/fourier-pen.jpg" alt="" loading="lazy"><img src="assets/shots/card/world-record-half-lives.jpg" alt="" loading="lazy"><img src="assets/shots/card/fire-retirement-simulator.jpg" alt="" loading="lazy"><img src="assets/shots/card/love-island-lexical-analysis.jpg" alt="" loading="lazy"></div>
 </header>
 
 <section class="section wrap" id="featured">
   <div class="section-head"><p class="section-eyebrow blue">Selected work</p><h2>Featured</h2><p>A product, a decision tool, two data stories, a language app.</p></div>
   <article class="card dark big wide"><a class="pic" href="https://lyhjeremy.github.io/skill-compass/"><img class="shot" src="assets/shots/med/skill-compass.jpg" alt="Skill checks scored like chess ratings" loading="lazy" width="720" height="450"></a><div class="body"><p class="eyebrow">SkillCompass</p><h3><a href="https://github.com/lyhjeremy/skill-compass">Skill checks scored like chess ratings</a></h3><p>SkillCompass gives two-minute quizzes in 40-plus fields, rates them Elo-style on real response data, and returns a percentile, a knowledge map and a study plan. Runs full stack on $0 a month.</p><div class="links"><a class="chev" href="https://lyhjeremy.github.io/skill-compass/">Open the site</a><a class="chev" href="https://lyhjeremy.github.io/skill-compass/overview/">Read the writeup</a><a class="chev" href="https://github.com/lyhjeremy/skill-compass">Code</a></div></div></article>
   <div class="grid cols-4" style="margin-top:14px"><article class="card blue"><a class="pic" href="https://lyhjeremy.github.io/leeway/"><img class="shot" src="assets/shots/card/leeway.jpg" alt="Route planning for a five-year-old battery" loading="lazy" width="720" height="450"></a><div class="body"><p class="eyebrow">Decision tools</p><h3><a href="https://github.com/lyhjeremy/leeway">Route planning for a five-year-old battery</a></h3><p>An EV trip planner with range modeling adjusted for elevation and weather, charger stops under a hard reserve, and a detour budget spent avoiding unprotected left turns.</p><div class="links"><a class="chev" href="https://lyhjeremy.github.io/leeway/">Open the site</a><a class="chev" href="https://lyhjeremy.github.io/leeway/overview/">Read the writeup</a></div></div></article><article class="card green"><a class="pic" href="https://lyhjeremy.github.io/world-record-half-lives/"><img class="shot" src="assets/shots/card/world-record-half-lives.jpg" alt="How long does a world record live?" loading="lazy" width="720" height="450"></a><div class="body"><p class="eyebrow">Survival analysis</p><h3><a href="https://github.com/lyhjeremy/world-record-half-lives">How long does a world record live?</a></h3><p>Kaplan-Meier and Cox regression over ~250 track-and-field record reigns. Median half-life: about 1.5 years, with an estimate of which current records fall next.</p><div class="links"><a class="chev" href="https://lyhjeremy.github.io/world-record-half-lives/">Open the site</a><a class="chev" href="https://lyhjeremy.github.io/world-record-half-lives/overview/">Read the writeup</a></div></div></article><article class="card orange"><a class="pic" href="https://lyhjeremy.github.io/marathon-heat-tax/"><img class="shot" src="assets/shots/card/marathon-heat-tax.jpg" alt="A hot day costs the typical Boston runner 31 minutes" loading="lazy" width="720" height="450"></a><div class="body"><p class="eyebrow">Regression</p><h3><a href="https://github.com/lyhjeremy/marathon-heat-tax">A hot day costs the typical Boston runner 31 minutes</a></h3><p>Fourteen Boston Marathons paired with race-day weather: the field median slows roughly one minute per degree Fahrenheit (r = 0.86).</p><div class="links"><a class="chev" href="https://lyhjeremy.github.io/marathon-heat-tax/">Open the site</a><a class="chev" href="https://lyhjeremy.github.io/marathon-heat-tax/overview/">Read the writeup</a></div></div></article><article class="card pink"><a class="pic" href="https://lyhjeremy.github.io/cantonese-learner-v2/"><img class="shot" src="assets/shots/card/cantonese-learner-v2.jpg" alt="Speaking Cantonese from today&#x27;s news" loading="lazy" width="720" height="450"></a><div class="body"><p class="eyebrow">Language</p><h3><a href="https://github.com/lyhjeremy/cantonese-learner-v2">Speaking Cantonese from today&#x27;s news</a></h3><p>Hong Kong news rewritten to spoken register with a review pass, neural zh-HK audio, jyutping, tap-to-compare and speech grading. Costs nothing to run.</p><div class="links"><a class="chev" href="https://lyhjeremy.github.io/cantonese-learner-v2/">Open the site</a><a class="chev" href="https://lyhjeremy.github.io/cantonese-learner-v2/overview/">Read the writeup</a></div></div></article></div>
+</section>
+
+<section class="section wrap" id="about">
+  <div class="section-head"><p class="section-eyebrow">About</p><h2>Background</h2><p>Business operator first, data scientist now.</p></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p><b>Co-founder and Chief Strategy Officer, Casual Ace Learning Centre</b>. Grew enrollment 5.2x to over 1,000 students across six centers.</p>
+      <p><b>MSBA, UCLA Anderson School of Management.</b> Graduate analytics coursework at Georgia Tech. BBA in Accounting and Finance, University of Hong Kong.</p>
+      <p>Outside work: 14 marathons with a 2:48 personal best in Berlin, which is where most of the running projects come from, and WSET Level 3 in wine, which explains the rest.</p>
+      <p class="about-links"><a class="pill primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="pill" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a></p>
+    </div>
+    <div class="skills">
+      <div><h4>Modeling</h4><p>scikit-learn, PyTorch, XGBoost. Regression, classification, clustering, time series, survival analysis, causal inference, A/B testing.</p></div>
+      <div><h4>GenAI and agents</h4><p>RAG (BM25, dense, cross-encoder reranking), embeddings and vector stores, LoRA fine-tuning, LLM-as-judge evals, LangChain, LangGraph, Anthropic and OpenAI APIs.</p></div>
+      <div><h4>Optimization and simulation</h4><p>Gurobi; LP, IP, QP and non-convex programs; branch-and-bound, duality, Monte Carlo.</p></div>
+      <div><h4>Data and deployment</h4><p>Python, R, SQL, Snowflake, Airflow, Spark, Tableau, Power BI. FastAPI and Streamlit apps on Render, Vercel and GitHub Pages.</p></div>
+    </div>
+  </div>
 </section>
 
 <div class="band"><section class="section wrap" id="series">
@@ -62,15 +83,8 @@ try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.docu
 
 <footer class="footer" id="colophon">
   <div class="wrap">
-    <div class="cols">
-      <div><h4>Modeling</h4><ul><li>scikit-learn, PyTorch, XGBoost</li><li>Regression, classification, clustering</li><li>Time series, neural networks</li><li>Causal inference, survival analysis</li><li>A/B testing</li></ul></div>
-      <div><h4>Optimization</h4><ul><li>Gurobi</li><li>LP / IP / QP, non-convex</li><li>Branch-and-bound, LP duality</li><li>Gradient descent</li><li>Simulation, Monte Carlo</li></ul></div>
-      <div><h4>GenAI and agents</h4><ul><li>LLM prompting, RAG, embeddings</li><li>Vector databases, fine-tuning</li><li>OpenAI and Anthropic APIs</li><li>LangChain, LangGraph</li><li>Tool use, retrieval pipelines</li></ul></div>
-      <div><h4>Data and deployment</h4><ul><li>Python, R, SQL</li><li>Snowflake, Airflow, Spark</li><li>Tableau, Power BI</li><li>Git, GitHub Pages, Streamlit</li></ul></div>
-    </div>
     <div class="about">
-      <p>Co-founder and Chief Strategy Officer at Casual Ace Learning Centre: grew enrollment 5.2x to over 1,000 students across six centers. MSBA, UCLA Anderson; BBA, University of Hong Kong. 14 marathons, Berlin personal best 2:48. WSET Level 3 in wine.</p>
-      <p><a href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a> · <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
+      <p>Jeremy Lee. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
     </div>
     <div class="legal">
       <span>Screenshots are captures of the live sites. No analytics, no third-party requests.</span>
