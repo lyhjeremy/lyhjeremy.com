@@ -75,7 +75,7 @@
     [
      "race-day-copilot",
      "Race Day Copilot",
-     "Photograph a race course map for a verified km-by-km pacing plan checked against five deterministic rules; a fine-tuned Qwen2.5-3B LoRA reaches near-parity with Claude on structure and plausibility."
+     "Photograph a race course map for a verified km-by-km pacing plan checked against six deterministic rules; a fine-tuned Qwen2.5-3B LoRA reaches near-parity with Claude on structure and plausibility."
     ]
    ]
   },
@@ -230,7 +230,7 @@
     "accent": "pine",
     "thumb": "assets/shots/band/world-record-half-lives.png",
     "headline": "How long does a world record live?",
-    "text": "Kaplan-Meier and Cox regression over ~250 track-and-field record reigns. Median half-life: about 1.5 years, with an estimate of which current records fall next."
+    "text": "Kaplan-Meier and Cox regression over 248 track-and-field record reigns. Median half-life: about 1.5 years, with an estimate of which current records fall next."
    },
    {
     "slug": "marathon-heat-tax",
@@ -280,9 +280,9 @@
     {
      "slug": "race-day-copilot",
      "name": "Race Day Copilot",
-     "stat": "5x verified",
+     "stat": "6 checks",
      "thumb": "assets/shots/band/race-day-copilot.png",
-     "note": "every km-by-km split passes five deterministic checks before you ever see it",
+     "note": "every km-by-km split passes six deterministic checks before you ever see it",
      "short": "A course photo in, a race plan out"
     }
    ]
