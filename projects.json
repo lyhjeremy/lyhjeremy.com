@@ -1,354 +1,354 @@
 {
-  "sections": [
-    {
-      "id": "featured",
-      "title": "Featured projects",
-      "lede": "Selected work across generative AI, statistical modeling and machine learning. The name links to the code, Live opens the project, Writeup opens the long-form page on how it works and what it found.",
-      "projects": [
-        [
-          "skill-compass",
-          "SkillCompass",
-          "A live skill-assessment platform: Elo-style calibration recalibrated from real quiz responses, live peer percentiles, and three LLM-backed features (resume-gap analysis, a mock-interview agent, a personalized study guide). Full-stack, $0/month infrastructure."
-        ],
-        [
-          "leeway",
-          "Leeway",
-          "An EV road-trip planner built around the battery a car actually has after five years: elevation- and weather-adjusted range modeling over live routing data, charger selection under a hard reserve constraint, and hazard-aware rerouting within a user-set detour budget."
-        ],
-        [
-          "mandarin-learning-reader",
-          "Mandarin Learning Reader",
-          "An interactive Mandarin tutor built from any Chinese EPUB: pinyin over every character, natural read-aloud, and offline speak-back pronunciation grading."
-        ],
-        [
-          "cantonese-learner-v2",
-          "Cantonese Learner",
-          "Learn to speak Cantonese from today's HK news plus a 96-scenario everyday-conversations curriculum: LLM rewrite with a review pass, neural zh-HK audio, jyutping, tap-to-compare, and speech grading."
-        ],
-        [
-          "epub-reading-level-analyzer",
-          "EPUB Reading-Level Analyzer",
-          "Drop in any EPUB and see its reading grade level, vocabulary richness, and word-coverage curve. Runs entirely in the browser, nothing uploaded."
-        ],
-        [
-          "wine-sommelier-rag",
-          "Wine Sommelier RAG",
-          "Semantic search over 130k wine reviews using hybrid BM25 and dense retrieval with a cross-encoder reranker, evaluated on retrieval quality (precision and nDCG up roughly 21%)."
-        ],
-        [
-          "marathon-training-agent",
-          "Marathon Training Agent",
-          "A LangGraph agent that iteratively drafts and revises a training plan until it satisfies explicit safety checks, with a Streamlit interface."
-        ],
-        [
-          "world-record-half-lives",
-          "World-Record Half-Lives",
-          "Survival analysis (Kaplan-Meier and Cox regression) of how long track-and-field world records stand, estimating each record's probability of falling."
-        ],
-        [
-          "marathon-performance-continuum",
-          "Performance Continuum",
-          "Distribution fitting and extreme-value theory locating any marathon time within a field of 31,842 finishers and quantifying how far the world record sits beyond it."
-        ]
-      ]
-    },
-    {
-      "id": "applied-ai",
-      "title": "Applied AI engineering",
-      "lede": "Four photo-to-structured-data apps pairing an LLM pipeline with a small model locally fine-tuned (LoRA) on the same task, each benchmarked base vs. fine-tuned vs. Claude zero-shot.",
-      "projects": [
-        [
-          "cellar-scanner",
-          "Cellar Scanner",
-          "Photograph a wine label for a grounded profile and food pairings cited to real reviews; a fine-tuned Qwen2.5-1.5B LoRA guesses grape variety from a blind tasting note alone, beating Claude's zero-shot Top-1 (27.7% vs. 23.0%)."
-        ],
-        [
-          "menu-decoder",
-          "Menu Decoder",
-          "Photograph a restaurant menu for cuisine and allergen-risk tags per dish; a fine-tuned LoRA reaches 99.3% cuisine accuracy and 69.3% allergen recall from a bare dish name."
-        ],
-        [
-          "receipt-auditor",
-          "Receipt Auditor",
-          "Photograph a receipt for automatic spend-category tagging; a fine-tuned LoRA reaches 90.5% category accuracy on held-out merchants, versus 27.7% for the base model and 56.0% for zero-shot Claude."
-        ],
-        [
-          "race-day-copilot",
-          "Race Day Copilot",
-          "Photograph a race course map for a verified km-by-km pacing plan checked against five deterministic rules; a fine-tuned Qwen2.5-3B LoRA reaches near-parity with Claude on structure and plausibility."
-        ]
-      ]
-    },
-    {
-      "id": "genai",
-      "title": "Generative AI and agents",
-      "projects": [
-        [
-          "marathon-strategy-rag",
-          "Marathon Strategy RAG",
-          "Grounded retrieval-augmented Q&A that cites its sources, evaluated with an LLM-as-judge faithfulness metric; includes a LangChain LCEL implementation."
-        ],
-        [
-          "wine-pairing-agent",
-          "Wine Pairing Agent",
-          "A LangGraph agent that infers a wine style and calls the retriever as a LangChain tool, with full run tracing."
-        ]
-      ]
-    },
-    {
-      "id": "running",
-      "title": "Running and sports analytics",
-      "projects": [
-        [
-          "national-strength-profiles",
-          "National Strength Profiles",
-          "K-means clustering and PCA of 43 nations across five athletics disciplines, identifying five distinct performance archetypes."
-        ],
-        [
-          "athletics-scoring-fairness",
-          "Scoring-Table Fairness Audit",
-          "Non-parametric hypothesis testing (Kruskal-Wallis) on 6,400 elite marks, assessing whether World Athletics points are comparable across events."
-        ],
-        [
-          "marathon-heat-tax",
-          "The Heat Tax",
-          "Regression of Boston Marathon field times on temperature: roughly one minute slower per degree F (r = 0.86)."
-        ],
-        [
-          "marathon-negative-split-myth",
-          "The Negative-Split Myth",
-          "Split analysis showing only 2.5% of 31,912 Boston finishers ran a faster second half."
-        ],
-        [
-          "marathon-pacing-decay",
-          "Hitting the Wall",
-          "Per-5K split analysis locating where marathon pace decays, around 30 km."
-        ],
-        [
-          "boston-marathon-qualifying-fairness",
-          "Boston BQ Fairness",
-          "An equity analysis of Boston qualifying standards across age and gender brackets."
-        ],
-        [
-          "marathon-majors-course-difficulty",
-          "Marathon Majors Course Difficulty",
-          "A three-framework comparison of finishing speed across the six World Marathon Majors."
-        ],
-        [
-          "marathon-shoe-revolution-decomposition",
-          "Marathon Shoe Revolution",
-          "Decomposition of recent marathon progression into footwear effects versus other factors."
-        ]
-      ]
-    },
-    {
-      "id": "language",
-      "title": "Language and NLP",
-      "projects": [
-        [
-          "lyrics-complexity-over-time",
-          "Are Song Lyrics Getting Simpler?",
-          "Fifty years of Billboard lyrics: longer and more repetitive over time, with roughly stable vocabulary."
-        ],
-        [
-          "love-island-lexical-analysis",
-          "Love Island Lexical Analysis",
-          "A corpus study of lexical complexity in reality-television dialogue."
-        ]
-      ]
-    },
-    {
-      "id": "consumer",
-      "title": "Consumer and finance",
-      "projects": [
-        [
-          "wine-score-inflation",
-          "Wine Score Inflation",
-          "How 130k professional reviews cluster into an effective 8-point band on the nominal 100-point scale."
-        ],
-        [
-          "fire-retirement-simulator",
-          "When Can I Retire?",
-          "A Monte-Carlo retirement simulator estimating the probability a portfolio lasts through retirement."
-        ]
-      ]
-    },
-    {
-      "id": "tools",
-      "title": "Apps and tools",
-      "projects": [
-        [
-          "fourier-pen",
-          "Fourier Pen",
-          "Turns any picture or text prompt into one continuous line and animates a chain of rotating arrows drawing it: a complex Fourier series you can watch, read and export as a wallpaper or video. Runs in the browser; the pen never lifts."
-        ],
-        [
-          "one-in-a-hundred",
-          "One in a Hundred",
-          "What it takes to be in the top 1%, top 10% or median of a group: 950 percentile facts from 72 sources, each graded A to D, with the full distribution drawn under every sentence. The \"$30k is the global top 1%\" claim is wrong under every definition."
-        ],
-        [
-          "leave-time-optimizer",
-          "Leave Time Optimizer",
-          "A routing tool that computes when to depart to arrive on time, using the Google Maps API."
-        ],
-        [
-          "epub-to-audiobook",
-          "EPUB to Audiobook",
-          "A desktop app that converts e-books into read-along audiobooks (English and Chinese)."
-        ],
-        [
-          "podcastify",
-          "Podcastify",
-          "Converts an e-book or article into a two-host podcast with synthetic voices."
-        ]
-      ]
-    }
-  ],
-  "editorial": {
-    "lead": {
-      "slug": "skill-compass",
-      "kicker": "No. 01 / applied AI",
-      "accent": "oxide",
-      "headline": "Skill checks scored like chess ratings",
-      "deck": "SkillCompass gives two-minute quizzes in 40-plus fields, rates them Elo-style on real response data, and returns a percentile, a knowledge map and a study plan. Runs full stack on $0 a month.",
-      "figure": "assets/shots/skill-compass.png",
-      "figcap": "SkillCompass, captured from the live site on 2026-08-23."
-    },
-    "briefs": [
-      {
-        "slug": "leeway",
-        "kicker": "No. 02 / decision tools",
-        "accent": "ink",
-        "headline": "Route planning for a five-year-old battery",
-        "text": "An EV trip planner with range modeling adjusted for elevation and weather, charger stops under a hard reserve, and a detour budget spent avoiding unprotected left turns.",
-        "thumb": "assets/shots/band/leeway.png"
-      },
-      {
-        "slug": "world-record-half-lives",
-        "kicker": "No. 03 / survival analysis",
-        "accent": "pine",
-        "thumb": "assets/shots/band/world-record-half-lives.png",
-        "headline": "How long does a world record live?",
-        "text": "Kaplan-Meier and Cox regression over ~250 track-and-field record reigns. Median half-life: about 1.5 years, with an estimate of which current records fall next."
-      },
-      {
-        "slug": "marathon-heat-tax",
-        "kicker": "No. 04 / regression",
-        "accent": "pine",
-        "thumb": "assets/shots/band/marathon-heat-tax.png",
-        "headline": "A hot day costs the typical Boston runner 31 minutes",
-        "text": "Fourteen Boston Marathons paired with race-day weather: the field median slows roughly one minute per degree Fahrenheit (r = 0.86)."
-      },
-      {
-        "slug": "cantonese-learner-v2",
-        "kicker": "No. 05 / language",
-        "accent": "oxide",
-        "thumb": "assets/shots/band/cantonese-learner-v2.png",
-        "headline": "Speaking Cantonese from today's news",
-        "text": "Hong Kong news rewritten to spoken register with a review pass, neural zh-HK audio, jyutping, tap-to-compare and speech grading. Costs nothing to run."
-      }
+ "sections": [
+  {
+   "id": "featured",
+   "title": "Featured projects",
+   "lede": "Selected work across generative AI, statistical modeling and machine learning. The name links to the code, Live opens the project, Writeup opens the long-form page on how it works and what it found.",
+   "projects": [
+    [
+     "skill-compass",
+     "SkillCompass",
+     "A live skill-assessment platform: Elo-style calibration recalibrated from real quiz responses, live peer percentiles, and three LLM-backed features (resume-gap analysis, a mock-interview agent, a personalized study guide). Full-stack, $0/month infrastructure."
     ],
-    "series": {
-      "title": "The fine-tuning series",
-      "intro": "Four photo-to-structured-data apps. Each pairs an LLM pipeline with a small model fine-tuned locally (LoRA) on the same task, benchmarked base vs. fine-tuned vs. Claude zero-shot.",
-      "rows": [
-        {
-          "slug": "cellar-scanner",
-          "name": "Cellar Scanner",
-          "stat": "27.7% vs 23.0%",
-          "thumb": "assets/shots/band/cellar-scanner.png",
-          "note": "a 1.5B model tuned on my laptop out-guesses Claude zero-shot at grape variety from a blind tasting note",
-          "short": "Snap a wine label, name the grape blind"
-        },
-        {
-          "slug": "menu-decoder",
-          "name": "Menu Decoder",
-          "stat": "99.3%",
-          "thumb": "assets/shots/band/menu-decoder.png",
-          "note": "cuisine called right from nothing but the dish name, with 69.3% recall across all 14 allergens",
-          "short": "Any menu, translated and allergen-flagged"
-        },
-        {
-          "slug": "receipt-auditor",
-          "name": "Receipt Auditor",
-          "stat": "90.5% vs 56%",
-          "thumb": "assets/shots/band/receipt-auditor.png",
-          "note": "the local model beats zero-shot Claude on merchants neither has ever seen",
-          "short": "Receipts in, clean spending data out"
-        },
-        {
-          "slug": "race-day-copilot",
-          "name": "Race Day Copilot",
-          "stat": "5x verified",
-          "thumb": "assets/shots/band/race-day-copilot.png",
-          "note": "every km-by-km split passes five deterministic checks before you ever see it",
-          "short": "A course photo in, a race plan out"
-        }
-      ]
-    },
-    "stories": {
-      "title": "Data stories",
-      "intro": "Findings from the analysis projects, each with the chart that carries it.",
-      "main": {
-        "slug": "wine-score-inflation",
-        "accent": "pine",
-        "figure": "assets/shots/hero/wine-score-inflation.png",
-        "figcap": "86% of wines land between 84 and 92. From the Wine Score Inflation story, captured 2026-08-23.",
-        "headline": "The 100-point wine scale is an 8-point scale",
-        "text": "Across 130,000 professional reviews, nothing scores below 80 and 86% land between 84 and 92. Price buys points, with steep diminishing returns."
-      },
-      "side": [
-        {
-          "slug": "marathon-pacing-decay",
-          "accent": "pine",
-          "figure": "assets/shots/hero/marathon-pacing-decay.png",
-          "figcap": "Median pace by 5K split, 31,655 Boston finishers.",
-          "headline": "The wall is real, and it sits near 30 km",
-          "text": "Per-5K splits hold flat for 30 km, then slow sharply; the median late-race slowdown is 15%."
-        },
-        {
-          "slug": "love-island-lexical-analysis",
-          "accent": "pine",
-          "figure": "assets/shots/hero/love-island-lexical-analysis.png",
-          "figcap": "The most frequent words on Love Island USA.",
-          "headline": "Love Island runs on 100 words",
-          "text": "61% of everything said on a season is the top 100 words; about 1,250 words cover 95% of the show."
-        }
-      ]
-    },
-    "numbers": {
-      "title": "By the numbers",
-      "tiles": [
-        {
-          "slug": "marathon-negative-split-myth",
-          "stat": "2.5%",
-          "label": "of 31,912 Boston finishers ran the negative split coaches preach"
-        },
-        {
-          "slug": "lyrics-complexity-over-time",
-          "stat": "2x",
-          "label": "hit songs doubled in length across 50 years of Billboard charts"
-        },
-        {
-          "slug": "marathon-performance-continuum",
-          "stat": "3:52",
-          "label": "median Boston finish; the field is log-normal"
-        },
-        {
-          "slug": "athletics-scoring-fairness",
-          "stat": "68 pts",
-          "label": "gap between the best- and worst-scoring events' elite ceilings"
-        },
-        {
-          "slug": "receipt-auditor",
-          "stat": "90.5%",
-          "label": "receipt categories called correctly by a model tuned on a laptop"
-        }
-      ]
-    }
+    [
+     "leeway",
+     "Leeway",
+     "An EV road-trip planner built around the battery a car actually has after five years: elevation- and weather-adjusted range modeling over live routing data, charger selection under a hard reserve constraint, and hazard-aware rerouting within a user-set detour budget."
+    ],
+    [
+     "mandarin-learning-reader",
+     "Mandarin Learning Reader",
+     "An interactive Mandarin tutor built from any Chinese EPUB: pinyin over every character, natural read-aloud, and offline speak-back pronunciation grading."
+    ],
+    [
+     "cantonese-learner-v2",
+     "Cantonese Learner",
+     "Learn to speak Cantonese from today's HK news plus a 96-scenario everyday-conversations curriculum: LLM rewrite with a review pass, neural zh-HK audio, jyutping, tap-to-compare, and speech grading."
+    ],
+    [
+     "epub-reading-level-analyzer",
+     "EPUB Reading-Level Analyzer",
+     "Drop in any EPUB and see its reading grade level, vocabulary richness, and word-coverage curve. Runs entirely in the browser, nothing uploaded."
+    ],
+    [
+     "wine-sommelier-rag",
+     "Wine Sommelier RAG",
+     "Semantic search over 130k wine reviews using hybrid BM25 and dense retrieval with a cross-encoder reranker, evaluated on retrieval quality (precision and nDCG up roughly 21%)."
+    ],
+    [
+     "marathon-training-agent",
+     "Marathon Training Agent",
+     "A LangGraph agent that iteratively drafts and revises a training plan until it satisfies explicit safety checks, with a Streamlit interface."
+    ],
+    [
+     "world-record-half-lives",
+     "World-Record Half-Lives",
+     "Survival analysis (Kaplan-Meier and Cox regression) of how long track-and-field world records stand, estimating each record's probability of falling."
+    ],
+    [
+     "marathon-performance-continuum",
+     "Performance Continuum",
+     "Distribution fitting and extreme-value theory locating any marathon time within a field of 31,842 finishers and quantifying how far the world record sits beyond it."
+    ]
+   ]
   },
-  "site_overrides": {
-    "fourier-pen": "https://fourier-pen.vercel.app/"
+  {
+   "id": "applied-ai",
+   "title": "Applied AI engineering",
+   "lede": "Four photo-to-structured-data apps pairing an LLM pipeline with a small model locally fine-tuned (LoRA) on the same task, each benchmarked base vs. fine-tuned vs. Claude zero-shot.",
+   "projects": [
+    [
+     "cellar-scanner",
+     "Cellar Scanner",
+     "Photograph a wine label for a grounded profile and food pairings cited to real reviews; a fine-tuned Qwen2.5-1.5B LoRA guesses grape variety from a blind tasting note alone, beating Claude's zero-shot Top-1 (27.7% vs. 23.0%)."
+    ],
+    [
+     "menu-decoder",
+     "Menu Decoder",
+     "Photograph a restaurant menu for cuisine and allergen-risk tags per dish; a fine-tuned LoRA reaches 99.3% cuisine accuracy and 69.3% allergen recall from a bare dish name."
+    ],
+    [
+     "receipt-auditor",
+     "Receipt Auditor",
+     "Photograph a receipt for automatic spend-category tagging; a fine-tuned LoRA reaches 90.5% category accuracy on held-out merchants, versus 27.7% for the base model and 56.0% for zero-shot Claude."
+    ],
+    [
+     "race-day-copilot",
+     "Race Day Copilot",
+     "Photograph a race course map for a verified km-by-km pacing plan checked against five deterministic rules; a fine-tuned Qwen2.5-3B LoRA reaches near-parity with Claude on structure and plausibility."
+    ]
+   ]
+  },
+  {
+   "id": "genai",
+   "title": "Generative AI and agents",
+   "projects": [
+    [
+     "marathon-strategy-rag",
+     "Marathon Strategy RAG",
+     "Grounded retrieval-augmented Q&A that cites its sources, evaluated with an LLM-as-judge faithfulness metric; includes a LangChain LCEL implementation."
+    ],
+    [
+     "wine-pairing-agent",
+     "Wine Pairing Agent",
+     "A LangGraph agent that infers a wine style and calls the retriever as a LangChain tool, with full run tracing."
+    ]
+   ]
+  },
+  {
+   "id": "running",
+   "title": "Running and sports analytics",
+   "projects": [
+    [
+     "national-strength-profiles",
+     "National Strength Profiles",
+     "K-means clustering and PCA of 43 nations across five athletics disciplines, identifying five distinct performance archetypes."
+    ],
+    [
+     "athletics-scoring-fairness",
+     "Scoring-Table Fairness Audit",
+     "Non-parametric hypothesis testing (Kruskal-Wallis) on 6,400 elite marks, assessing whether World Athletics points are comparable across events."
+    ],
+    [
+     "marathon-heat-tax",
+     "The Heat Tax",
+     "Regression of Boston Marathon field medians on race-day temperature, 2001 to 2014: roughly one minute slower per degree F (r = 0.86)."
+    ],
+    [
+     "marathon-negative-split-myth",
+     "The Negative-Split Myth",
+     "Split analysis showing only 2.5% of 31,912 Boston finishers ran a faster second half."
+    ],
+    [
+     "marathon-pacing-decay",
+     "Hitting the Wall",
+     "Per-5K split analysis of 31,655 Boston finishers: pace drifts after 10 km and drops sharply between 20 and 35 km."
+    ],
+    [
+     "boston-marathon-qualifying-fairness",
+     "Boston BQ Fairness",
+     "An equity analysis of Boston qualifying standards across age and gender brackets."
+    ],
+    [
+     "marathon-majors-course-difficulty",
+     "Marathon Majors Course Difficulty",
+     "Three methods for ranking course difficulty across the six World Marathon Majors, validated on simulated races with planted course penalties: the paired method recovers each within 7.3 seconds."
+    ],
+    [
+     "marathon-shoe-revolution-decomposition",
+     "Marathon Shoe Revolution",
+     "Decomposition of recent marathon progression into footwear effects versus other factors."
+    ]
+   ]
+  },
+  {
+   "id": "language",
+   "title": "Language and NLP",
+   "projects": [
+    [
+     "lyrics-complexity-over-time",
+     "Are Song Lyrics Getting Simpler?",
+     "Fifty years of Billboard lyrics: longer and more repetitive over time, with roughly stable vocabulary."
+    ],
+    [
+     "love-island-lexical-analysis",
+     "Love Island Lexical Analysis",
+     "A corpus study of lexical complexity in reality-television dialogue."
+    ]
+   ]
+  },
+  {
+   "id": "consumer",
+   "title": "Consumer and finance",
+   "projects": [
+    [
+     "wine-score-inflation",
+     "Wine Score Inflation",
+     "How 130k professional reviews cluster into an effective 8-point band on the nominal 100-point scale."
+    ],
+    [
+     "fire-retirement-simulator",
+     "When Can I Retire?",
+     "A Monte-Carlo retirement simulator estimating the probability a portfolio lasts through retirement."
+    ]
+   ]
+  },
+  {
+   "id": "tools",
+   "title": "Apps and tools",
+   "projects": [
+    [
+     "fourier-pen",
+     "Fourier Pen",
+     "Turns any picture or text prompt into one continuous line and animates a chain of rotating arrows drawing it: a complex Fourier series you can watch, read and export as a wallpaper or video. Runs in the browser; the pen never lifts."
+    ],
+    [
+     "one-in-a-hundred",
+     "One in a Hundred",
+     "What it takes to be in the top 1%, top 10% or median of a group: 950 percentile facts from 72 sources, each graded A to D, with the full distribution drawn under every sentence. The \"$30k is the global top 1%\" claim is wrong under every definition."
+    ],
+    [
+     "leave-time-optimizer",
+     "Leave Time Optimizer",
+     "A routing tool that computes when to depart to arrive on time, using the Google Maps API."
+    ],
+    [
+     "epub-to-audiobook",
+     "EPUB to Audiobook",
+     "A desktop app that converts e-books into read-along audiobooks (English and Chinese)."
+    ],
+    [
+     "podcastify",
+     "Podcastify",
+     "Converts an e-book or article into a two-host podcast with synthetic voices."
+    ]
+   ]
   }
+ ],
+ "editorial": {
+  "lead": {
+   "slug": "skill-compass",
+   "kicker": "No. 01 / applied AI",
+   "accent": "oxide",
+   "headline": "Skill checks scored like chess ratings",
+   "deck": "SkillCompass gives two-minute quizzes in 40-plus fields, rates them Elo-style on real response data, and returns a percentile, a knowledge map and a study plan. Runs full stack on $0 a month.",
+   "figure": "assets/shots/skill-compass.png",
+   "figcap": "SkillCompass, captured from the live site on 2026-08-23."
+  },
+  "briefs": [
+   {
+    "slug": "leeway",
+    "kicker": "No. 02 / decision tools",
+    "accent": "ink",
+    "headline": "Route planning for a five-year-old battery",
+    "text": "An EV trip planner with range modeling adjusted for elevation and weather, charger stops under a hard reserve, and a detour budget spent avoiding unprotected left turns.",
+    "thumb": "assets/shots/band/leeway.png"
+   },
+   {
+    "slug": "world-record-half-lives",
+    "kicker": "No. 03 / survival analysis",
+    "accent": "pine",
+    "thumb": "assets/shots/band/world-record-half-lives.png",
+    "headline": "How long does a world record live?",
+    "text": "Kaplan-Meier and Cox regression over ~250 track-and-field record reigns. Median half-life: about 1.5 years, with an estimate of which current records fall next."
+   },
+   {
+    "slug": "marathon-heat-tax",
+    "kicker": "No. 04 / regression",
+    "accent": "pine",
+    "thumb": "assets/shots/band/marathon-heat-tax.png",
+    "headline": "A hot day costs the typical Boston runner 31 minutes",
+    "text": "Boston Marathons from 2001 to 2014 paired with race-day weather (2013 excluded): the field median slows roughly one minute per degree Fahrenheit (r = 0.86)."
+   },
+   {
+    "slug": "cantonese-learner-v2",
+    "kicker": "No. 05 / language",
+    "accent": "oxide",
+    "thumb": "assets/shots/band/cantonese-learner-v2.png",
+    "headline": "Speaking Cantonese from today's news",
+    "text": "Hong Kong news rewritten to spoken register with a review pass, neural zh-HK audio, jyutping, tap-to-compare and speech grading. Costs nothing to run."
+   }
+  ],
+  "series": {
+   "title": "The fine-tuning series",
+   "intro": "Four photo-to-structured-data apps. Each pairs an LLM pipeline with a small model fine-tuned locally (LoRA) on the same task, benchmarked base vs. fine-tuned vs. Claude zero-shot.",
+   "rows": [
+    {
+     "slug": "cellar-scanner",
+     "name": "Cellar Scanner",
+     "stat": "27.7% vs 23.0%",
+     "thumb": "assets/shots/band/cellar-scanner.png",
+     "note": "a 1.5B model tuned on my laptop out-guesses Claude zero-shot at grape variety from a blind tasting note",
+     "short": "Snap a wine label, name the grape blind"
+    },
+    {
+     "slug": "menu-decoder",
+     "name": "Menu Decoder",
+     "stat": "99.3%",
+     "thumb": "assets/shots/band/menu-decoder.png",
+     "note": "cuisine called right from nothing but the dish name, with 69.3% recall across all 14 allergens",
+     "short": "Any menu, translated and allergen-flagged"
+    },
+    {
+     "slug": "receipt-auditor",
+     "name": "Receipt Auditor",
+     "stat": "90.5% vs 56%",
+     "thumb": "assets/shots/band/receipt-auditor.png",
+     "note": "the local model beats zero-shot Claude on merchants neither has ever seen",
+     "short": "Receipts in, clean spending data out"
+    },
+    {
+     "slug": "race-day-copilot",
+     "name": "Race Day Copilot",
+     "stat": "5x verified",
+     "thumb": "assets/shots/band/race-day-copilot.png",
+     "note": "every km-by-km split passes five deterministic checks before you ever see it",
+     "short": "A course photo in, a race plan out"
+    }
+   ]
+  },
+  "stories": {
+   "title": "Data stories",
+   "intro": "Findings from the analysis projects, each with the chart that carries it.",
+   "main": {
+    "slug": "wine-score-inflation",
+    "accent": "pine",
+    "figure": "assets/shots/hero/wine-score-inflation.png",
+    "figcap": "86% of wines land between 84 and 92. From the Wine Score Inflation story, captured 2026-08-23.",
+    "headline": "The 100-point wine scale is an 8-point scale",
+    "text": "Across 130,000 professional reviews, nothing scores below 80 and 86% land between 84 and 92. Price buys points, with steep diminishing returns."
+   },
+   "side": [
+    {
+     "slug": "marathon-pacing-decay",
+     "accent": "pine",
+     "figure": "assets/shots/hero/marathon-pacing-decay.png",
+     "figcap": "Median pace by 5K split, 31,655 Boston finishers.",
+     "headline": "The wall is real, and it arrives between 20 and 35 km",
+     "text": "Pace drifts after 10 km, then drops sharply in the second half; the median late-race slowdown is 15%."
+    },
+    {
+     "slug": "love-island-lexical-analysis",
+     "accent": "pine",
+     "figure": "assets/shots/hero/love-island-lexical-analysis.png",
+     "figcap": "The most frequent words on Love Island USA.",
+     "headline": "Love Island runs on 100 words",
+     "text": "61% of everything said on a season is the top 100 words; about 1,250 words cover 95% of the show."
+    }
+   ]
+  },
+  "numbers": {
+   "title": "By the numbers",
+   "tiles": [
+    {
+     "slug": "marathon-negative-split-myth",
+     "stat": "2.5%",
+     "label": "of 31,912 Boston finishers ran the negative split coaches preach"
+    },
+    {
+     "slug": "lyrics-complexity-over-time",
+     "stat": "2x",
+     "label": "hit songs doubled in length across 50 years of Billboard charts"
+    },
+    {
+     "slug": "marathon-performance-continuum",
+     "stat": "3:52",
+     "label": "median Boston finish; the field is log-normal"
+    },
+    {
+     "slug": "athletics-scoring-fairness",
+     "stat": "68 pts",
+     "label": "gap between the best- and worst-scoring events' elite ceilings"
+    },
+    {
+     "slug": "receipt-auditor",
+     "stat": "90.5%",
+     "label": "receipt categories called correctly by a model tuned on a laptop"
+    }
+   ]
+  }
+ },
+ "site_overrides": {
+  "fourier-pen": "https://fourier-pen.vercel.app/"
+ }
 }
