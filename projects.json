@@ -65,12 +65,12 @@
     [
      "menu-decoder",
      "Menu Decoder",
-     "Photograph a restaurant menu for cuisine and allergen-risk tags per dish; a fine-tuned LoRA reaches 99.3% cuisine accuracy and 69.3% allergen recall from a bare dish name."
+     "Photograph a restaurant menu for cuisine and allergen-risk tags per dish; a fine-tuned LoRA reaches 99.3% cuisine accuracy and 69.3% allergen recall from a bare dish name, with no schema in the prompt. Claude given the full schema is still safer on allergens (79.2%)."
     ],
     [
      "receipt-auditor",
      "Receipt Auditor",
-     "Photograph a receipt for automatic spend-category tagging; a fine-tuned LoRA reaches 90.5% category accuracy on held-out merchants, versus 27.7% for the base model and 56.0% for zero-shot Claude."
+     "Photograph a receipt for automatic spend-category tagging; a fine-tuned LoRA reaches 90.5% category accuracy on held-out merchants against 27.7% for the base model. It also leads zero-shot Claude, by less than the published 56.0% suggests; the write-up explains why."
     ],
     [
      "race-day-copilot",
@@ -266,15 +266,15 @@
      "name": "Menu Decoder",
      "stat": "99.3%",
      "thumb": "assets/shots/band/menu-decoder.png",
-     "note": "cuisine called right from nothing but the dish name, with 69.3% recall across all 14 allergens",
+     "note": "cuisine called right from nothing but the dish name, no schema in the prompt; Claude with the schema still wins on allergens",
      "short": "Any menu, translated and allergen-flagged"
     },
     {
      "slug": "receipt-auditor",
      "name": "Receipt Auditor",
-     "stat": "90.5% vs 56%",
+     "stat": "90.5%",
      "thumb": "assets/shots/band/receipt-auditor.png",
-     "note": "the local model beats zero-shot Claude on merchants neither has ever seen",
+     "note": "category accuracy on merchants the model never saw in training, ahead of zero-shot Claude",
      "short": "Receipts in, clean spending data out"
     },
     {
