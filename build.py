@@ -18,6 +18,8 @@ FAMILY = {slug: fam for fam, slugs in data["families"].items() for slug in slugs
 SITE_OVERRIDES = data.get("site_overrides", {})
 NO_WRITEUP = set(data.get("no_writeup", []))
 missing = [s for s in NAMES if s not in FAMILY]
+noimg = [s for s in NAMES if not (ROOT / CARD / f"{s}.jpg").exists()]
+assert not noimg, f"no card image for {noimg}"
 assert not missing, f"no family for {missing}"
 
 def site(slug):
@@ -70,7 +72,9 @@ numbers = "".join(
 
 index = "".join(
     f'<section class="group" id="g-{g["id"]}"><h3>{e(g["title"])} <span>{len(g["projects"])}</span></h3><ol>'
-    + "".join(f'<li>{tag(slug)}<a class="pname" href="{site(slug)}">{e(name)}</a>'
+    + "".join(f'<li><a class="thumb" href="{site(slug)}" tabindex="-1" aria-hidden="true">'
+              f'<img src="{CARD}{slug}.jpg" alt="" loading="lazy" width="720" height="450"></a>'
+              f'<span class="pn">{tag(slug)}<a class="pname" href="{site(slug)}">{e(name)}</a></span>'
               f'<span class="sum">{e(summary)}</span>{links(slug)}</li>' for slug, name, summary in g["projects"])
     + "</ol></section>" for g in data["groups"])
 legend = "".join(f'<li>{tag(slugs[0])} {len(slugs)}</li>' for fam, slugs in data["families"].items())
@@ -125,7 +129,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <h1>Jeremy Lee</h1>
     <p class="lede">I build models, the tests that show whether they work, and the apps people open to use them. There are {n} projects here, each with a live site, and {nw} with a write-up on what it found and where it falls short.</p>
     <p class="sub">MSBA at UCLA Anderson. Before that I co-founded an education company and grew it 5.2 times over, to more than 1,000 students across six centers.</p>
-    <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="btn" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a><a class="btn" href="https://github.com/lyhjeremy">GitHub</a></p>
+    <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a><a class="btn" href="https://github.com/lyhjeremy">GitHub</a></p>
   </div>
   <figure class="course">
     <div class="course-box" style="aspect-ratio:{VB[2]:.3f}/{VB[3]:.3f}">
@@ -180,7 +184,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <div class="about-text">
       <p>I spent the years before data science running a business. I co-founded Casual Ace Learning Centre and, as Chief Strategy Officer, grew enrollment 5.2 times to more than 1,000 students across six centers. I came to data science through an MSBA at UCLA Anderson, after graduate analytics coursework at Georgia Tech and a BBA in Accounting and Finance from the University of Hong Kong.</p>
       <p>Outside work I have run 14 marathons, with a best of 2:48 in Berlin, and I hold WSET Level 3 in wine. Between them they account for most of the questions on this page.</p>
-      <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="btn" href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a></p>
+      <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a></p>
     </div>
     <dl class="skills">
       <dt>Modeling</dt><dd>scikit-learn, PyTorch, XGBoost. Regression, classification, clustering, time series, survival analysis, causal inference, A/B testing.</dd>
@@ -194,7 +198,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 
 <footer class="foot">
   <div class="wrap">
-    <p>Jeremy Lee. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/jeremylyh/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
+    <p>Jeremy Lee. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
     <p class="small">Images are figures from each project's write-up or captures of its live site. No analytics, no cookies and no third-party requests; the theme choice stays in your browser. <a href="{GH}{REPO}">Source for this page</a>.</p>
   </div>
 </footer>
