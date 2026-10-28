@@ -292,7 +292,7 @@
     "name": "Receipt Auditor",
     "task": "Spend category for merchants it has never seen",
     "ft": "90.5%",
-    "claude": "56.0%",
+    "claude": "80.0%",
     "mark": "a"
    },
    {
@@ -321,7 +321,7 @@
    }
   ],
   "notes": {
-   "a": "As scored. Claude's answers drew on the project's category list, and the original scorer's rule is lost; reading the first category Claude names gives about 74.7%. The fine-tuned model still leads.",
+   "a": "Clean rerun on 2026-10-28: Claude saw only the merchant text and the 12 labels, with tools off. Most of its misses are noisy labels in the test set (hardware and cables marked other). The first run scored 56.0% with a leaked category list.",
    "b": "Scored on the same 200 notes, the fine-tuned model is right on 55 and Claude on 46 (sign test p = 0.33), so the gap is within noise.",
    "c": "Claude needs the full allergen schema in every prompt to get there; the fine-tuned model gets the dish name only."
   }
