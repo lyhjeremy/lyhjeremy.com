@@ -37,17 +37,16 @@ def tag(slug):
     f = FAMILY[slug]
     return f'<span class="fam fam-{f}">{f}</span>'
 
-# App screens read best at the larger size; analysis projects use their headline figure.
-img = lambda slug: f"{MED}{slug}.jpg" if slug in ("skill-compass", "leeway", "cantonese-learner-v2") else f"{CARD}{slug}.jpg"
-selected = "".join(
-    f'<article class="sel" id="w-{s["slug"]}">'
-    f'<div class="sel-text"><p class="sel-no">{i:02d}</p>'
-    f'<p class="kicker">{e(s["label"])} {tag(s["slug"])}</p>'
-    f'<h3><a href="{site(s["slug"])}">{e(s["headline"])}</a></h3>'
-    f'<p class="name">{e(NAMES[s["slug"]])}</p><p>{e(s["text"])}</p>{links(s["slug"])}</div>'
-    f'<figure><a href="{site(s["slug"])}" tabindex="-1"><img src="{img(s["slug"])}" alt="{e(s["figcap"])}" '
-    f'loading="lazy" width="1280" height="800"></a><figcaption>{e(s["figcap"])}</figcaption></figure></article>'
-    for i, s in enumerate(data["selected"], 1))
+def feat(i, s):
+    lead = i == 1
+    return (f'<article class="feat{" lead" if lead else ""}" id="w-{s["slug"]}">'
+            f'<a class="feat-img" href="{site(s["slug"])}" tabindex="-1" aria-hidden="true">'
+            f'<img src="{MED}{s["slug"]}.jpg" alt="" {"" if lead else 'loading="lazy" '}width="1000" height="625"></a>'
+            f'<div class="feat-text"><p class="kicker"><span class="no">{i:02d}</span> {e(s["label"])} {tag(s["slug"])}</p>'
+            f'<h3><a href="{site(s["slug"])}">{e(s["headline"])}</a></h3>'
+            f'<p class="name">{e(NAMES[s["slug"]])}</p><p class="blurb">{e(s["text"])}</p>{links(s["slug"])}</div></article>')
+
+selected = "".join(feat(i, s) for i, s in enumerate(data["selected"], 1))
 
 S = data["series"]
 sup = lambda m: f"<sup>{m}</sup>" if m else ""
@@ -71,13 +70,15 @@ numbers = "".join(
     f'<span class="l">{e(t["label"])}</span></a></li>' for t in data["numbers"])
 
 index = "".join(
-    f'<section class="group" id="g-{g["id"]}"><h3>{e(g["title"])} <span>{len(g["projects"])}</span></h3><ol>'
-    + "".join(f'<li><a class="thumb" href="{site(slug)}" tabindex="-1" aria-hidden="true">'
+    f'<section class="group" id="g-{g["id"]}"><h3>{e(g["title"])} <span class="count">{len(g["projects"])}</span></h3><ol>'
+    + "".join(f'<li data-fam="{FAMILY[slug]}"><a class="thumb" href="{site(slug)}" tabindex="-1" aria-hidden="true">'
               f'<img src="{CARD}{slug}.jpg" alt="" loading="lazy" width="720" height="450"></a>'
               f'<span class="pn">{tag(slug)}<a class="pname" href="{site(slug)}">{e(name)}</a></span>'
               f'<span class="sum">{e(summary)}</span>{links(slug)}</li>' for slug, name, summary in g["projects"])
     + "</ol></section>" for g in data["groups"])
-legend = "".join(f'<li>{tag(slugs[0])} {len(slugs)}</li>' for fam, slugs in data["families"].items())
+legend = (f'<button type="button" class="all" data-fam="" aria-pressed="true">All <span>{len(NAMES)}</span></button>'
+          + "".join(f'<button type="button" data-fam="{fam}" aria-pressed="false">{tag(slugs[0])} <span>{len(slugs)}</span></button>'
+                    for fam, slugs in data["families"].items()))
 
 n = len(NAMES)
 nw = sum(1 for s in NAMES if s not in NO_WRITEUP)
@@ -143,17 +144,9 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
   </figure>
 </section>
 
-<div class="wrap"><ul class="facts" aria-label="In brief">
-  <li><span class="v">14</span> marathons</li>
-  <li><span class="v">2:48</span> in Berlin</li>
-  <li><span class="v">WSET 3</span> in wine</li>
-  <li><span class="v">MSBA</span> UCLA Anderson</li>
-  <li><span class="v">BBA</span> Univ. of Hong Kong</li>
-</ul></div>
-
-<section class="wrap block" id="work">
+<section class="wrap featured" id="work">
   <div class="head"><p class="eyebrow">Selected work</p><h2>Five to start with</h2></div>
-  {selected}
+  <div class="feats">{selected}</div>
 </section>
 
 <section class="wrap block" id="series">
@@ -173,13 +166,20 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 
 <section class="wrap block" id="index">
   <div class="head"><p class="eyebrow">Index</p><h2>All {n} projects</h2>
-  <p class="intro">Each project site has its own look. The tag says which of five families it belongs to.</p>
-  <ul class="legend">{legend}</ul></div>
+  <p class="intro">Each project site has its own look, in one of five families. Pick a family to narrow the list.</p>
+  <div class="legend" role="group" aria-label="Show one family" hidden>{legend}</div></div>
   {index}
 </section>
 
 <section class="wrap block" id="about">
   <div class="head"><p class="eyebrow">About</p><h2>Background</h2></div>
+  <ul class="facts" aria-label="In brief">
+  <li><span class="v">14</span> marathons</li>
+  <li><span class="v">2:48</span> in Berlin</li>
+  <li><span class="v">WSET 3</span> in wine</li>
+  <li><span class="v">MSBA</span> UCLA Anderson</li>
+  <li><span class="v">BBA</span> Univ. of Hong Kong</li>
+</ul>
   <div class="about">
     <div class="about-text">
       <p>I spent the years before data science running a business. I co-founded Casual Ace Learning Centre and, as Chief Strategy Officer, grew enrollment 5.2 times to more than 1,000 students across six centers. I came to data science through an MSBA at UCLA Anderson, after graduate analytics coursework at Georgia Tech and a BBA in Accounting and Finance from the University of Hong Kong.</p>
@@ -213,6 +213,16 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     var next=dark()?"light":"dark";root.setAttribute("data-theme",next);
     try{{localStorage.setItem("theme",next);}}catch(err){{}}
     render();if(window.redrawPen)window.redrawPen(true);
+  }});
+}})();
+(function(){{
+  var bar=document.querySelector(".legend");if(!bar)return;bar.hidden=false;
+  var btns=bar.querySelectorAll("button"),groups=document.querySelectorAll(".group");
+  bar.addEventListener("click",function(ev){{
+    var b=ev.target.closest("button");if(!b)return;var f=b.getAttribute("data-fam");
+    btns.forEach(function(x){{x.setAttribute("aria-pressed",x===b?"true":"false");}});
+    groups.forEach(function(g){{var n=0;g.querySelectorAll("li").forEach(function(li){{var on=!f||li.getAttribute("data-fam")===f;li.hidden=!on;if(on)n++;}});
+      g.hidden=n===0;g.querySelector(".count").textContent=n;}});
   }});
 }})();
 (function(){{
