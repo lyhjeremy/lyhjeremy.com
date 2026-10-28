@@ -16,44 +16,38 @@ To go back to `lyhjeremy.github.io` (for example, before letting the domain laps
 
 `index.html` is generated. Do not edit it by hand.
 
-- `projects.json` is the content source. `sections` lists all 32 projects (slug, display name, one-line summary) in seven groups. `editorial` holds the curated front: the lead project, the four featured briefs, the fine-tuning series rows (each with `stat`, `short` headline and `note`), the three data stories and the five numbers tiles. All links derive from the slug: code at `github.com/lyhjeremy/<slug>`, site at `lyhjeremy.github.io/<slug>/`, writeup at `.../<slug>/overview/`.
-- `build.py` renders `index.html` from the JSON. `site_overrides` in the JSON maps a slug to a site URL for projects not on GitHub Pages (Fourier Pen is on Vercel); the writeup is always at `<site>overview/`. The category color maps live at the top (`TONES`, `STAT_TONES`, `GROUP_TONES`); the About section (experience, skills) and the footer are inline in the template. Run `python3 build.py` after any edit and commit both files.
+- `projects.json` is the content source. `families` maps every project to one of the five Ledger families (road, track, cellar, language, workshop) used by the project sites; `build.py` refuses to build if a project has none. `groups` lists all 33 projects (slug, display name, one-line summary) in six groups for the index. `selected`, `series`, `stories` and `numbers` hold the curated sections. `site_overrides` maps a slug to a site URL for projects not on GitHub Pages (Fourier Pen is on Vercel); `no_writeup` lists projects without an `/overview/` page.
+- `assets/berlin.json` holds the hero drawing: the Berlin Marathon course from `tools/berlin-2023.gpx` (a public GPX of the 2023 race), resampled to 512 points and reduced to its 160 largest Fourier terms by `tools/course.py`. The page draws the course with those terms as a chain of rotating circles, the method behind Fourier Pen. Under `prefers-reduced-motion` it draws the finished line with no animation.
+- `build.py` renders `index.html` from both files. The About section and the footer are inline in the template. Run `python3 build.py` after any edit and commit both files.
 - `assets/site.css` is all of the styling. `tools/thumbs.py` makes card images (below).
 
-Page structure, top to bottom: sticky nav; hero (name, positioning line, background line, Email/LinkedIn/GitHub buttons, category chips, a 2x3 mosaic of thumbnails); Featured (one wide SkillCompass card plus four cards); About (experience, education and four skill groups, added 2026-10-26 so a recruiter finds them without scrolling to the footer); The fine-tuning series (four stat cards on a gray band); Data stories (three chart cards plus five stat tiles); All 32 projects (mini cards grouped by category, on a gray band); a one-line contact footer.
+Page structure, top to bottom: sticky top bar; hero (name, positioning line, contact buttons, the course drawing); a strip of five facts; Selected work (five numbered rows, text beside a figure); the fine-tuning series as a table with footnoted caveats; Data stories (one large figure and two small, then five numbers); the index of all 33 projects, each tagged with its family; About; footer.
 
 ## Images
 
 Three asset tiers under `assets/shots/`:
 
-- `card/<slug>.jpg`, 720x450: the thumbnail used everywhere. Each is the most interesting figure from that project's writeup (a chart, an app screen or a pipeline diagram), padded to 16:10 on a corner-sampled background, never cropped, so no axis or label is lost. Two projects have no writeup figures (`epub-to-audiobook`, `podcastify`) and use a crop of their live page instead.
-- `med/<slug>.jpg`, 1280x800: same treatment for the two wide cards (`skill-compass`, `wine-score-inflation`).
+- `card/<slug>.jpg`, 720x450: each project's most interesting figure from its writeup (a chart, an app screen or a pipeline diagram), padded to 16:10 on a corner-sampled background, never cropped. Two projects have no writeup figures (`epub-to-audiobook`, `podcastify`) and use a crop of their live page.
+- `med/<slug>.jpg`: larger versions. Selected work uses these for the three app screens (SkillCompass, Leeway, Cantonese Learner) and the `card` figure for the analysis projects.
 - `<slug>.png`, 1600px wide: full captures of each live site's top, kept as raw material.
 
 To refresh one project's thumbnail: pick a figure from `https://lyhjeremy.github.io/<slug>/overview/`, then
 
     python3 tools/thumbs.py <slug> <figure-url> [--wide]
 
-To recapture a live page (Leeway's map does not render headless; use its writeup images instead):
-
-    chrome --headless=new --window-size=1100,800 --force-device-scale-factor=2 \
-        --screenshot=assets/shots/<slug>.png https://lyhjeremy.github.io/<slug>/
-    sips -Z 1600 assets/shots/<slug>.png
-
 ## Styling and theme
 
-Apple.com idiom: system sans (SF on Apple devices, Helvetica/Arial elsewhere), white page with `#f5f5f7` bands, rounded cards, chevron links, compact type. Every screenshot sits in a white 10px mat with a hairline border, which is what keeps 30 visually different thumbnails looking like one set. Since 2026-10-15 there is one accent (`--accent`, Apple blue): the six tone classes `build.py` emits (`blue`, `green`, ...) still exist but all resolve to that accent, card bodies are plain, chips are neutral pills, section eyebrows are grey, category groups are separated by a hairline, and the former dark gradient lead and story cards are plain cards. To bring colour back, give the `--c-*`/`--t-*` variables distinct values again in `assets/site.css`.
+Since 2026-10-27 the page uses the Ledger base identity from [DESIGN_STANDARDS.md](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md) (paper ground, Source Serif 4, IBM Plex Sans and Mono, oxide and pine, square corners, no shadows), so it now passes `designcheck.py` like every project site. Each project's family shows up as a small tag in that family's accent and display face, which previews the look of the site the link opens. All ten font files are self-hosted in `assets/fonts/`.
 
-Light is the default for every visitor. Dark is opt-in via the nav toggle, stored in `localStorage` and applied before first paint; dark uses `#1c1c1e` bordered cards on black with brightened accents, and the white image mats stay white by design. All colors are custom properties on `:root` and `:root[data-theme="dark"]` in `assets/site.css`. Layout holds at 320px and up. On phones the nav drops links rather than scrolling sideways: below 600px it hides Fine-tuning and Data stories (the `.opt` class), below 380px also GitHub (`.opt-sm`), since both destinations are still reachable from the page. Hover motion is disabled under `prefers-reduced-motion`.
-
-This repo is a recorded exception to [DESIGN_STANDARDS.md](https://github.com/lyhjeremy/lyhjeremy/blob/main/DESIGN_STANDARDS.md) (see its Exceptions section): do not run `designcheck.py` here. Commits carry no AI attribution trailers.
+The theme follows the visitor's system setting; the toggle in the top bar overrides it and is stored in `localStorage`, applied before first paint. Colors are custom properties on bare `:root`, redefined for dark under `prefers-color-scheme` and `[data-theme="dark"]`. Layout holds at 320px and up; below 600px the top bar drops Fine-tuning and Stories.
 
 ## Adding a project
 
 1. Add the row to the right group in `projects.json` (plus an `editorial` entry if it should be featured).
 2. Make its thumbnail with `tools/thumbs.py` (figure from the writeup, not the page top).
-3. `python3 build.py`, open `index.html` locally in light and dark, commit `projects.json`, `index.html` and the new image.
+3. Give it a family in `families`.
+4. `python3 build.py`, open `index.html` locally in light and dark, commit `projects.json`, `index.html` and the new image.
 
 ## History
 
-Built 2026-08-23/24, four iterations in one sitting: a dark Ledger-style mirror of the profile README; an editorial "data journal" front page; an apple.com-style restyle (dark, then light); and the current compact image-first card grid with writeup-figure thumbnails and white mats. The git log carries the sequence.
+Built 2026-08-23/24, four iterations in one sitting: a dark Ledger-style mirror of the profile README; an editorial "data journal" front page; an apple.com-style restyle; and a compact image-first card grid. On 2026-10-27 it was rebuilt in the Ledger style with the Berlin course drawing, a benchmark table and a one-line-per-project index. The git log carries the sequence.
