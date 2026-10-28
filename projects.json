@@ -41,7 +41,8 @@
    "menu-decoder",
    "fire-retirement-simulator",
    "leave-time-optimizer",
-   "downtime-cli"
+   "downtime-cli",
+   "fuel-lockstep"
   ]
  },
  "groups": [
@@ -197,6 +198,11 @@
      "wine-score-inflation",
      "Wine Score Inflation",
      "Nothing in 130,000 reviews scores below 80, and 86% land between 84 and 92."
+    ],
+    [
+     "fuel-lockstep",
+     "Fuel Lockstep",
+     "Hong Kong's five petrol brands post one price on 88% of days. Six years of posted prices screened against import costs, with Perth and Los Angeles for contrast."
     ],
     [
      "lyrics-complexity-over-time",
