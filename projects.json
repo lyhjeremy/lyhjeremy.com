@@ -21,7 +21,8 @@
    "wine-score-inflation",
    "wine-sommelier-rag",
    "wine-pairing-agent",
-   "cellar-scanner"
+   "cellar-scanner",
+   "vintage-heat"
   ],
   "language": [
    "cantonese-learner-v2",
@@ -30,7 +31,8 @@
    "love-island-lexical-analysis",
    "lyrics-complexity-over-time",
    "podcastify",
-   "epub-to-audiobook"
+   "epub-to-audiobook",
+   "fame-half-life"
   ],
   "workshop": [
    "skill-compass",
@@ -42,7 +44,8 @@
    "fire-retirement-simulator",
    "leave-time-optimizer",
    "downtime-cli",
-   "fuel-lockstep"
+   "fuel-lockstep",
+   "connection-odds"
   ]
  },
  "groups": [
@@ -200,9 +203,19 @@
      "Nothing in 130,000 reviews scores below 80, and 86% land between 84 and 92."
     ],
     [
+     "vintage-heat",
+     "Vintage Heat",
+     "A season 1 °C warmer than normal moved scores by 0.23 points in cool regions, across 62,348 reviews and 60 regions. The checks weaken even that."
+    ],
+    [
      "fuel-lockstep",
      "Fuel Lockstep",
      "Hong Kong's five petrol brands post one price on 88% of days. Six years of posted prices screened against import costs, with Perth and Los Angeles for contrast."
+    ],
+    [
+     "fame-half-life",
+     "Fame Half-Life",
+     "Half the extra Wikipedia attention a death brings is gone a day after the peak. 1,905 deaths and 175 awards, 2016 to 2025."
     ],
     [
      "lyrics-complexity-over-time",
@@ -234,6 +247,11 @@
      "leave-time-optimizer",
      "Leave Time Optimizer",
      "When to leave to arrive on time, from Google Maps traffic estimates."
+    ],
+    [
+     "connection-odds",
+     "Connection Odds",
+     "A 45-minute layover at a US hub missed 17% of the time, from 23 million flights. The lookup gives the layover you need for 95%."
     ],
     [
      "epub-to-audiobook",
