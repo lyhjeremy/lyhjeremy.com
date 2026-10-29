@@ -200,7 +200,7 @@
     [
      "wine-score-inflation",
      "Wine Score Inflation",
-     "Nothing in 130,000 reviews scores below 80, and 86% land between 84 and 92."
+     "Nothing in about 120,000 unique reviews scores below 80, and 85% land between 84 and 92."
     ],
     [
      "vintage-heat",
@@ -354,7 +354,7 @@
   {
    "slug": "wine-score-inflation",
    "headline": "The 100-point wine scale is an 8-point scale",
-   "text": "Across 130,000 professional reviews nothing scores below 80, and 86% land between 84 and 92. Some critics are simply more generous than others.",
+   "text": "Across about 120,000 unique professional reviews (the source file repeats 9,983) nothing scores below 80, and 85% land between 84 and 92. Some critics are simply more generous than others.",
    "figcap": "Average points awarded, by reviewer."
   },
   {
