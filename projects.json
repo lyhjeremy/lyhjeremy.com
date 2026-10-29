@@ -179,7 +179,7 @@
     [
      "world-record-half-lives",
      "World-Record Half-Lives",
-     "Survival analysis of 248 record reigns; the median record lasts about 1.5 years."
+     "Every Olympic event's world-record progression, a frailty survival model tested on 2011 to 2025, and the odds each current record falls before LA 2028."
     ],
     [
      "athletics-scoring-fairness",
@@ -261,7 +261,7 @@
     [
      "podcastify",
      "Podcastify",
-     "Turns an EPUB or article into a two-host podcast with free neural voices."
+     "Turns a whole book or article into a two-host episode where every claim cites the sentences it came from and is checked before it is voiced."
     ],
     [
      "downtime-cli",
@@ -289,9 +289,9 @@
   {
    "slug": "world-record-half-lives",
    "label": "Survival analysis",
-   "headline": "How long does a world record live?",
-   "text": "I treated 248 track-and-field record reigns as survival times, with the records still standing as censored. Kaplan-Meier puts the median reign at about 1.5 years, and a Cox model gives each current record its odds of falling.",
-   "figcap": "Which current records the model expects to go next."
+   "headline": "Which world records fall before LA 2028?",
+   "text": "I rebuilt the ratified progression of all 46 Olympic events from World Athletics' records handbook, 1,251 reigns in all, and fitted a survival model with a frailty for each event. Fitted on what was known in 2010, it ranked the records that fell from 2011 to 2025 better than the base rate (Brier 0.235 against 0.329). Duplantis's pole vault leads the LA 2028 watchlist at 48%.",
+   "figcap": "The top of the LA 2028 watchlist, from the write-up."
   },
   {
    "slug": "marathon-heat-tax",
