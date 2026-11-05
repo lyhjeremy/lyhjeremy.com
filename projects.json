@@ -339,8 +339,8 @@
     "slug": "race-day-copilot",
     "name": "Race Day Copilot",
     "task": "Km-by-km pacing plan, checked by six rules (3B)",
-    "ft": "Near parity on structure",
-    "claude": "Ahead on split arithmetic",
+    "ft": "95.7% valid plans; 0.0% pass all six checks",
+    "claude": "90.0% valid; 75.7% pass",
     "mark": ""
    }
   ],
