@@ -445,7 +445,7 @@
    "name": "Menu Decoder (LoRA vs Claude)",
    "evalset": "303 dishes, held out by dish family",
    "result": "Fine-tuned 69.3% allergen recall, against 79.2% for Claude with the full schema",
-   "cost": "$0 local",
+   "cost": "$0 local; Claude $56 per 1,000 dishes",
    "latency": "Local 6.5 s median; Claude 12.3 s median",
    "failure": "Rare allergens: sulphites 0 of 11 found. Claude still wins here"
   },
