@@ -266,6 +266,19 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
   }});
 }})();
 (function(){{
+  if(!matchMedia("(max-width:600px)").matches)return;
+  document.querySelectorAll(".group").forEach(function(g){{
+    var items=g.querySelectorAll("li");if(items.length<=5)return;
+    for(var i=4;i<items.length;i++)items[i].classList.add("folded");
+    var b=document.createElement("button");b.type="button";b.className="showall";
+    b.textContent="Show all "+items.length;
+    b.addEventListener("click",function(){{items.forEach(function(li){{li.classList.remove("folded");}});b.remove();}});
+    g.appendChild(b);
+  }});
+  var bar=document.querySelector(".legend");
+  if(bar)bar.addEventListener("click",function(){{document.querySelectorAll(".group li.folded").forEach(function(li){{li.classList.remove("folded");}});document.querySelectorAll(".showall").forEach(function(b){{b.remove();}});}});
+}})();
+(function(){{
   var bar=document.querySelector(".legend");if(!bar)return;bar.hidden=false;
   var btns=bar.querySelectorAll("button"),groups=document.querySelectorAll(".group");
   bar.addEventListener("click",function(ev){{
