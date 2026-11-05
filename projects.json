@@ -420,7 +420,7 @@
    "result": "nDCG@10 0.76, against 0.59 for dense retrieval (30 queries)",
    "cost": "$0 retrieval; $0.13 generation",
    "latency": "Retrieval 196 ms median, 257 ms p95; answer 8.3 s median",
-   "failure": "Ignores a price limit stated in the sentence (20 of 76 missed slots)"
+   "failure": "Wrong grape or color (20) and an ignored price limit (19) account for half of the 76 missed slots"
   },
   {
    "slug": "podcastify",
@@ -453,10 +453,10 @@
    "slug": "skill-compass",
    "name": "SkillCompass question bank",
    "evalset": "645 shipped questions compared with their drafts",
-   "result": "Review pass rewrote 266; longest-option giveaways down from 37% to 23%",
+   "result": "Review pass rewrote 266; longest-option giveaways down from 37% to 23%; key positions rebalanced to 165/164/158/158",
    "cost": "$0 (free tiers)",
    "latency": "Not measured",
-   "failure": "64% of stored keys were option A. Options are now shuffled on every showing; the bank still needs rebalancing"
+   "failure": "As drafted, 64% of keys were option A. Fixed: options shuffle on every showing and the stored bank is rebalanced"
   }
  ],
  "jobs": [
