@@ -456,7 +456,7 @@
    "result": "Review pass rewrote 266; longest-option giveaways down from 37% to 23%",
    "cost": "$0 (free tiers)",
    "latency": "Not measured",
-   "failure": "64% of answer keys are option A and options are not shuffled"
+   "failure": "64% of stored keys were option A. Options are now shuffled on every showing; the bank still needs rebalancing"
   }
  ],
  "jobs": [
