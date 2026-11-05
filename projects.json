@@ -118,7 +118,7 @@
     [
      "wine-sommelier-rag",
      "Wine Sommelier RAG",
-     "Plain-English search over 30,000 wine reviews: BM25 plus dense retrieval and a reranker, about 21% better than dense alone."
+     "Plain-English search over 30,000 wine reviews: BM25 plus dense retrieval and a reranker. On 30 frozen queries nDCG@10 rose from 0.59 to 0.76."
     ],
     [
      "marathon-strategy-rag",
@@ -280,6 +280,20 @@
    "figcap": "SkillCompass, captured from the live site."
   },
   {
+   "slug": "marathon-strategy-rag",
+   "label": "Agents and MCP",
+   "headline": "A coach that calls the models before it answers",
+   "text": "The same Claude model answers marathon questions three ways: on its own, with retrieval, and with my pace and heat models as tools (also served over MCP). On 42 numeric targets from a question set frozen before any run, the tool coach got 42, retrieval 21 and the bare model 14. A question costs a median 1.7 cents at API prices and takes 8.4 seconds; the write-up shows a full tool-call trace and where each system fails.",
+   "figcap": "Numeric answers within tolerance, by question type."
+  },
+  {
+   "slug": "podcastify",
+   "label": "Grounded generation",
+   "headline": "A two-host episode where every claim cites its source",
+   "text": "Podcastify turns a whole book or article into a two-host episode. Each factual line carries the ids of the sentences it rests on and is checked before it is voiced. Across four sources it covered 7.4 of 12 frozen key points against 4.4 for a rule-based script. An independent Opus check found 8 of 172 lines not fully supported, and the repair step did not lower that, which the page says plainly.",
+   "figcap": "Key-point coverage and unsupported lines, by source."
+  },
+  {
    "slug": "leeway",
    "label": "Decision tool",
    "headline": "Route planning for a five-year-old battery",
@@ -292,20 +306,6 @@
    "headline": "Which world records fall before LA 2028?",
    "text": "I rebuilt the ratified progression of all 46 Olympic events from World Athletics' records handbook, 1,251 reigns in all, and fitted a survival model with a frailty for each event. Fitted on what was known in 2010, it ranked the records that fell from 2011 to 2025 better than the base rate (Brier 0.235 against 0.329). Duplantis's pole vault leads the LA 2028 watchlist at 48%.",
    "figcap": "The top of the LA 2028 watchlist, from the write-up."
-  },
-  {
-   "slug": "marathon-heat-tax",
-   "label": "Regression",
-   "headline": "Heat starts costing Boston runners at 55°F",
-   "text": "Eighty Boston Marathons, 1940 to 2019, paired with ERA5 weather at three points on the course. Below 55°F the temperature costs nothing; above it the median runner loses about 0.42% of finish time per degree F. Dew point added nothing, and on the 2015 to 2019 holdout the model did no better than a flat guess, which the write-up says plainly.",
-   "figcap": "Each race against its long-run trend, by course temperature, 1940 to 2019."
-  },
-  {
-   "slug": "cantonese-learner-v2",
-   "label": "Language app",
-   "headline": "Learning spoken Cantonese from today's news",
-   "text": "Every day an LLM rewrites Hong Kong headlines from written Chinese into the Cantonese people speak, and a second pass reviews it. Each line comes with neural zh-HK audio and jyutping, plus tap-to-compare playback and speech grading.",
-   "figcap": "A lesson in the Cantonese Learner."
   }
  ],
  "series": {
@@ -402,5 +402,87 @@
  },
  "no_writeup": [
   "downtime-cli"
+ ],
+ "evidence": [
+  {
+   "slug": "marathon-strategy-rag",
+   "name": "Marathon strategy coach (tools, MCP)",
+   "evalset": "43 questions, 42 numeric targets, frozen by hash before any run",
+   "result": "42 of 42, against 21 for RAG and 14 for the bare model",
+   "cost": "$0.017 median",
+   "latency": "8.4 s median, 14.6 s p95 (n=11)",
+   "failure": "Asks for a missing input instead of answering; 42 of 42 is close to circular, since the targets come from the models it calls"
+  },
+  {
+   "slug": "wine-sommelier-rag",
+   "name": "Wine Sommelier RAG",
+   "evalset": "12 + 30 rubric queries, the 30 committed before the first run",
+   "result": "nDCG@10 0.76, against 0.59 for dense retrieval (30 queries)",
+   "cost": "$0 retrieval; $0.13 generation",
+   "latency": "Retrieval 196 ms median, 257 ms p95; answer 8.3 s median",
+   "failure": "Ignores a price limit stated in the sentence (20 of 76 missed slots)"
+  },
+  {
+   "slug": "podcastify",
+   "name": "Podcastify",
+   "evalset": "4 sources, 12 key points each, committed before generation",
+   "result": "7.4 of 12 key points, against 4.4 for rule mode; 8 of 172 lines unsupported",
+   "cost": "$0.35 per episode (n=1)",
+   "latency": "3 min 43 s per episode, half of it audio",
+   "failure": "The repair step did not lower the unsupported rate, and the two checkers disagree"
+  },
+  {
+   "slug": "receipt-auditor",
+   "name": "Receipt Auditor (LoRA vs Claude)",
+   "evalset": "220 items from 158 merchants the model never saw",
+   "result": "Fine-tuned 1.5B model 90.5%, against 80.0% for Claude zero-shot",
+   "cost": "$0 local; Claude $3.03 per 1,000 items",
+   "latency": "Local 0.19 s median; Claude 3.6 s median, 9.0 s p95",
+   "failure": "Hardware and gasoline items, whose training labels themselves split two ways"
+  },
+  {
+   "slug": "menu-decoder",
+   "name": "Menu Decoder (LoRA vs Claude)",
+   "evalset": "303 dishes, held out by dish family",
+   "result": "Fine-tuned 69.3% allergen recall, against 79.2% for Claude with the full schema",
+   "cost": "$0 local",
+   "latency": "Local 6.5 s median; Claude 12.3 s median",
+   "failure": "Rare allergens: sulphites 0 of 11 found. Claude still wins here"
+  },
+  {
+   "slug": "skill-compass",
+   "name": "SkillCompass question bank",
+   "evalset": "645 shipped questions compared with their drafts",
+   "result": "Review pass rewrote 266; longest-option giveaways down from 37% to 23%",
+   "cost": "$0 (free tiers)",
+   "latency": "Not measured",
+   "failure": "64% of answer keys are option A and options are not shuffled"
+  }
+ ],
+ "jobs": [
+  {
+   "when": "Jul to Sep 2026",
+   "role": "Data Engineer, Enterprise Systems and Intelligence",
+   "org": "Kandu, Los Angeles (stroke-recovery health tech)",
+   "text": "Led the architecture of a natural-language analytics platform on Claude and MCP, from proposal to production: the access model, semantic grounding and promotion gates that let commercial, clinical and operations teams query data themselves. Built the dbt warehouse under it from 13 post-merger systems, under HIPAA and GDPR; identity matching raised record linkage from 75.7% to 97.5%."
+  },
+  {
+   "when": "Jun to Dec 2026",
+   "role": "Data Analyst, and graduate student researcher",
+   "org": "UCLA Anderson",
+   "text": "Designed the Office of Inclusive Excellence's first data pipeline (450+ files, versioned and checksum-verified). Research with Prof. Jane Wu on LA's deep-tech cluster (5,022 firms) and with Prof. Yihao Yuan on how LLM voice agents affect debt recovery across 36,000 calls."
+  },
+  {
+   "when": "Jun 2025 to Mar 2026",
+   "role": "Data Scientist",
+   "org": "InstaAgent, Los Angeles (AI marketing, Y Combinator)",
+   "text": "Built the LLM content-generation system for nine small-business clients across X, LinkedIn, Instagram and TikTok, which cut content production cost by more than 80%. Deployed engagement and send-time models that lifted engagement 25% and campaign ROI 18%."
+  },
+  {
+   "when": "2016 to 2025",
+   "role": "Co-founder and Chief Strategy Officer",
+   "org": "Casual Ace Learning Centre, Hong Kong",
+   "text": "Grew from one location to eight with a geo-demographic demand model and A/B pricing tests: enrollment up 5.2 times, revenue 6.7 times, more than 1,000 students. Shipped the company's learning platform end to end, LLM tutor included, and led 28 staff."
+  }
  ]
 }

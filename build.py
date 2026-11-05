@@ -81,6 +81,14 @@ legend = (f'<button type="button" class="all" data-fam="" aria-pressed="true">Al
                     for fam, slugs in data["families"].items()))
 
 n = len(NAMES)
+RESUME = "assets/Jeremy-Lee-Resume-AI-Engineer.pdf"
+evidence_rows = "".join(
+    f'<tr><th scope="row"><a href="{site(r["slug"])}overview/">{e(r["name"])}</a></th><td>{e(r["evalset"])}</td>'
+    f'<td class="strong">{e(r["result"])}</td><td class="mono">{e(r["cost"])}</td><td class="mono">{e(r["latency"])}</td>'
+    f'<td>{e(r["failure"])}</td></tr>' for r in data.get("evidence", []))
+jobs = "".join(
+    f'<li><p class="when">{e(j["when"])}</p><div><h3>{e(j["role"])}<span class="org">{e(j["org"])}</span></h3>'
+    f'<p>{e(j["text"])}</p></div></li>' for j in data.get("jobs", []))
 nw = sum(1 for s in NAMES if s not in NO_WRITEUP)
 # Frame the drawing on the course's own bounding box plus a margin, so it fills the figure.
 import re
@@ -93,8 +101,8 @@ course_json = json.dumps({"terms": course["terms"], "vb": VB}, separators=(",", 
 
 # Head metadata: link-preview card (og.png, made by _ai-projects-tooling/og-cards/make_cards.py)
 # and Person structured data.
-DESC = (f"Jeremy Lee, data scientist. UCLA Anderson MSBA. {n} projects with live sites: RAG, agents, "
-        "LoRA fine-tunes, survival analysis, Monte Carlo, and a lot of marathon data.")
+DESC = (f"Jeremy Lee, AI engineer in Los Angeles, open to relocation. LLM apps on Claude and MCP, each with a frozen eval set, "
+        f"a baseline, and measured cost and latency. {n} projects with live sites. UCLA Anderson MSBA.")
 PERSON = json.dumps({
     "@context": "https://schema.org", "@type": "Person", "name": "Jeremy Lee", "url": SITE.rstrip("/"),
     "jobTitle": "AI Engineer",
@@ -110,19 +118,19 @@ page = f'''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jeremy Lee: data science and applied AI</title>
+<title>Jeremy Lee: AI engineer</title>
 <meta name="description" content="{e(DESC)}">
 <link rel="canonical" href="{SITE}">
 <meta property="og:url" content="{SITE}">
-<meta property="og:title" content="Jeremy Lee: data science and applied AI">
+<meta property="og:title" content="Jeremy Lee: AI engineer">
 <meta property="og:description" content="{e(DESC)}">
 <meta property="og:type" content="website">
 <meta property="og:image" content="{SITE}og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Jeremy Lee, data science and applied AI, with the Berlin Marathon course">
+<meta property="og:image:alt" content="Jeremy Lee, AI engineer, with the Berlin Marathon course">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Jeremy Lee: data science and applied AI">
+<meta name="twitter:title" content="Jeremy Lee: AI engineer">
 <meta name="twitter:description" content="{e(DESC)}">
 <meta name="twitter:image" content="{SITE}og.png">
 <script type="application/ld+json">{PERSON}</script>
@@ -139,9 +147,10 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <a class="brand" href="{SITE}">Jeremy Lee</a>
     <nav aria-label="Page">
       <a href="#work">Work</a>
+      <a class="opt" href="#evals">Evals</a>
+      <a class="opt" href="#experience">Experience</a>
       <a class="opt" href="#series">Fine-tuning</a>
-      <a class="opt" href="#stories">Stories</a>
-      <a href="#index">Index</a>
+            <a href="#index">Index</a>
       <a href="#about">About</a>
       <button type="button" id="theme-toggle" hidden aria-pressed="false">Dark</button>
     </nav>
@@ -151,11 +160,11 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 <main id="main">
 <section class="hero wrap">
   <div class="hero-text">
-    <p class="eyebrow">Data science and applied AI</p>
+    <p class="eyebrow">AI engineer · Los Angeles, open to relocation</p>
     <h1>Jeremy Lee</h1>
-    <p class="lede">I build models, the tests that show whether they work, and the apps people open to use them. There are {n} projects here, each with a live site, and {nw} with a write-up on what it found and where it falls short.</p>
-    <p class="sub">MSBA at UCLA Anderson. Before that I co-founded an education company and grew it 5.2 times over, to more than 1,000 students across six centers.</p>
-    <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a><a class="btn" href="https://github.com/lyhjeremy">GitHub</a></p>
+    <p class="lede">I build LLM systems and the evals that show whether they work: a frozen test set, a baseline, the cost and latency of every answer, and the failures written down. There are {n} projects here, each with a live site, and {nw} with a write-up.</p>
+    <p class="sub">Most recently I led a natural-language analytics platform on Claude and MCP at Kandu, a stroke-recovery health company. Before that: data scientist at InstaAgent (Y Combinator), and nine years as co-founder and Chief Strategy Officer of an education company that grew enrollment 5.2 times. MSBA at UCLA Anderson, December 2026.</p>
+    <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="btn" href="{RESUME}">Resume (PDF)</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a><a class="btn" href="https://github.com/lyhjeremy">GitHub</a></p>
   </div>
   <figure class="course">
     <div class="course-box" style="aspect-ratio:{VB[2]:.3f}/{VB[3]:.3f}">
@@ -172,6 +181,21 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 <section class="wrap featured" id="work">
   <div class="head"><p class="eyebrow">Selected work</p><h2>Five to start with</h2></div>
   <div class="feats">{selected}</div>
+</section>
+
+<section class="wrap block" id="evals">
+  <div class="head"><p class="eyebrow">How I test AI systems</p><h2>The numbers behind the AI projects</h2><p class="intro">Each row comes from the project's own eval files: a test set frozen before the first run, the baseline it has to beat, what an answer costs at API prices and how long it takes. The last column is the failure I would fix next.</p></div>
+  <div class="scroll"><table class="bench evid">
+    <thead><tr><th scope="col">Project</th><th scope="col">Frozen eval set</th><th scope="col">Result vs baseline</th><th scope="col">Cost per task</th><th scope="col">Latency</th><th scope="col">Main failure</th></tr></thead>
+    <tbody>{evidence_rows}</tbody>
+  </table></div>
+  <p class="notes small">Cost is the API-equivalent price reported by the Claude CLI; local-model timings are on an Apple M4 laptop. n is given where it is small.</p>
+</section>
+
+<section class="wrap block" id="experience">
+  <div class="head"><p class="eyebrow">Experience</p><h2>Where I have shipped this</h2></div>
+  <ol class="jobs">{jobs}</ol>
+  <p class="contact"><a class="btn" href="{RESUME}">Full resume (PDF)</a></p>
 </section>
 
 <section class="wrap block" id="series">
@@ -199,23 +223,24 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 <section class="wrap block" id="about">
   <div class="head"><p class="eyebrow">About</p><h2>Background</h2></div>
   <ul class="facts" aria-label="In brief">
+  <li><span class="v">3.92</span> MSBA GPA</li>
   <li><span class="v">14</span> marathons</li>
   <li><span class="v">2:48</span> in Berlin</li>
   <li><span class="v">WSET 3</span> in wine</li>
   <li><span class="v">MSBA</span> UCLA Anderson</li>
-  <li><span class="v">BBA</span> Univ. of Hong Kong</li>
-</ul>
+  </ul>
   <div class="about">
     <div class="about-text">
-      <p>I spent the years before data science running a business. I co-founded Casual Ace Learning Centre and, as Chief Strategy Officer, grew enrollment 5.2 times to more than 1,000 students across six centers. I came to data science through an MSBA at UCLA Anderson, after graduate analytics coursework at Georgia Tech and a BBA in Accounting and Finance from the University of Hong Kong.</p>
+      <p>I spent nine years running a business before I wrote production code. I co-founded Casual Ace Learning Centre in Hong Kong and, as Chief Strategy Officer, grew enrollment 5.2 times to more than 1,000 students across eight locations, and shipped its learning platform, LLM tutor included. That is why my projects report cost and failure modes next to accuracy. I came to AI engineering through an MSBA at UCLA Anderson (GPA 3.92), after graduate analytics coursework at Georgia Tech and a BBA in Accounting and Finance from the University of Hong Kong.</p>
       <p>Outside work I have run 14 marathons, with a best of 2:48 in Berlin, and I hold WSET Level 3 in wine. Between them they account for most of the questions on this page.</p>
-      <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a></p>
+      <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">lyhjeremy@gmail.com</a><a class="btn" href="{RESUME}">Resume (PDF)</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a></p>
     </div>
     <dl class="skills">
       <dt>Modeling</dt><dd>scikit-learn, PyTorch, XGBoost. Regression, classification, clustering, time series, survival analysis, causal inference, A/B testing.</dd>
-      <dt>GenAI and agents</dt><dd>RAG (BM25, dense, cross-encoder reranking), embeddings and vector stores, LoRA fine-tuning, LLM-as-judge evals, LangChain, LangGraph, Anthropic and OpenAI APIs.</dd>
+      <dt>LLM systems</dt><dd>Claude and MCP, tool use, agents (LangGraph), RAG (BM25, dense, cross-encoder reranking), LoRA fine-tuning, evals with frozen gold sets and LLM judges, grounding checks, cost and latency measurement.</dd>
+      <dt>Engineering</dt><dd>Python, TypeScript, SQL, FastAPI, React, Git, CI/CD, GCP, Claude Code.</dd>
       <dt>Optimization</dt><dd>Gurobi; LP, IP, QP and non-convex programs; branch-and-bound, duality, Monte Carlo simulation.</dd>
-      <dt>Data and deployment</dt><dd>Python, R, SQL, Snowflake, Airflow, Spark, Tableau, Power BI. FastAPI and Streamlit apps on Render, Vercel and GitHub Pages.</dd>
+      <dt>Data</dt><dd>Snowflake, dbt, Airflow, Spark, R, Tableau, Power BI. Apps deployed on Render, Vercel and GitHub Pages.</dd>
     </dl>
   </div>
 </section>
@@ -223,7 +248,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 
 <footer class="foot">
   <div class="wrap">
-    <p>Jeremy Lee. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
+    <p>Jeremy Lee, AI engineer, Los Angeles. <a href="mailto:lyhjeremy@gmail.com">Email</a> · <a href="{RESUME}">Resume</a> · <a href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a> · <a href="https://github.com/lyhjeremy">GitHub</a></p>
     <p class="small">Images are figures from each project's write-up or captures of its live site. No analytics, no cookies and no third-party requests; the theme choice stays in your browser. <a href="{GH}{REPO}">Source for this page</a>.</p>
   </div>
 </footer>
