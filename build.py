@@ -91,16 +91,41 @@ VB += [max(x for x, _ in _xy) + PAD - VB[0], max(y for _, y in _xy) + PAD - VB[1
 VB = [round(v, 4) for v in VB]
 course_json = json.dumps({"terms": course["terms"], "vb": VB}, separators=(",", ":"))
 
+# Head metadata: link-preview card (og.png, made by _ai-projects-tooling/og-cards/make_cards.py)
+# and Person structured data.
+DESC = (f"Jeremy Lee, data scientist. UCLA Anderson MSBA. {n} projects with live sites: RAG, agents, "
+        "LoRA fine-tunes, survival analysis, Monte Carlo, and a lot of marathon data.")
+PERSON = json.dumps({
+    "@context": "https://schema.org", "@type": "Person", "name": "Jeremy Lee", "url": SITE.rstrip("/"),
+    "jobTitle": "AI Engineer",
+    "address": {"@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA",
+                "addressCountry": "US"},
+    "sameAs": ["https://github.com/lyhjeremy", "https://www.linkedin.com/in/lyhjeremy/"],
+    "alumniOf": [{"@type": "CollegeOrUniversity", "name": "UCLA Anderson School of Management"},
+                 {"@type": "CollegeOrUniversity", "name": "The University of Hong Kong"}],
+}, separators=(",", ":")).replace("</", "<\\/")
+
 page = f'''<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jeremy Lee: data science and applied AI</title>
-<meta name="description" content="Jeremy Lee, data scientist. UCLA Anderson MSBA. {n} projects with live sites: RAG, agents, LoRA fine-tunes, survival analysis, Monte Carlo, and a lot of marathon data.">
+<meta name="description" content="{e(DESC)}">
 <link rel="canonical" href="{SITE}">
 <meta property="og:url" content="{SITE}">
 <meta property="og:title" content="Jeremy Lee: data science and applied AI">
+<meta property="og:description" content="{e(DESC)}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{SITE}og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jeremy Lee, data science and applied AI, with the Berlin Marathon course">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jeremy Lee: data science and applied AI">
+<meta name="twitter:description" content="{e(DESC)}">
+<meta name="twitter:image" content="{SITE}og.png">
+<script type="application/ld+json">{PERSON}</script>
 <link rel="preload" href="assets/fonts/SourceSerif4-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
 <script>
