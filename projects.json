@@ -66,7 +66,7 @@
     [
      "one-in-a-hundred",
      "One in a Hundred",
-     "What it takes to be top 1%, top 10% or median: 950 facts from 72 sources, each graded A to D, with the distribution drawn underneath."
+     "What it takes to be top 1%, top 10% or median: 950 graded facts, and a question box with an opt-in MiniLM parser that runs in your browser."
     ],
     [
      "fourier-pen",
@@ -97,7 +97,7 @@
     [
      "menu-decoder",
      "Menu Decoder",
-     "Menu photo to translated dishes with cuisine and allergen tags, from a LoRA that needs no schema in the prompt."
+     "Menu photo to translated dishes with 14-allergen tags. A LoRA behind two guard layers that only add warnings: hidden misses on 60 adversarial dishes went from 22 to 0."
     ],
     [
      "receipt-auditor",
@@ -118,7 +118,7 @@
     [
      "wine-sommelier-rag",
      "Wine Sommelier RAG",
-     "Plain-English search over 30,000 wine reviews: BM25 plus dense retrieval and a reranker. On 30 frozen queries nDCG@10 rose from 0.59 to 0.76."
+     "Hybrid search over 30,000 wine reviews that reads price, place and grape from the request first: limit-breaking results 77.5% to 0. Also runs in your browser."
     ],
     [
      "marathon-strategy-rag",
@@ -128,7 +128,7 @@
     [
      "wine-pairing-agent",
      "Wine Pairing Agent",
-     "A LangGraph agent that reasons from pairing principles to a style, searches the reviews and critiques its own pick."
+     "A LangGraph agent whose self-critique is a schema-checked rubric: 10 of 10 dishes pass, every run replayable node by node."
     ],
     [
      "marathon-training-agent",
@@ -235,7 +235,7 @@
     [
      "fire-retirement-simulator",
      "When Can I Retire?",
-     "Replays your retirement plan through every start year of US market history since 1871, and finds the smallest change that reaches 90%."
+     "Replays a retirement plan through every start year since 1871. Ask it in plain English: an agent fills the scenario and the engine does all the math (also an MCP server)."
     ]
    ]
   },
@@ -251,7 +251,7 @@
     [
      "connection-odds",
      "Connection Odds",
-     "A 45-minute layover at a US hub missed 17% of the time, from 23 million flights. The lookup gives the layover you need for 95%."
+     "A 45-minute layover at a US hub missed 17% of the time, from 23 million flights. Paste an itinerary and an agent scores each connection with the model."
     ],
     [
      "epub-to-audiobook",
@@ -261,12 +261,12 @@
     [
      "podcastify",
      "Podcastify",
-     "Turns a whole book or article into a two-host episode where every claim cites the sentences it came from and is checked before it is voiced."
+     "A whole book becomes a two-host episode where every claim cites its source. Its checkers were tested on 56 lines broken on purpose: Opus caught all 56."
     ],
     [
      "downtime-cli",
      "downtime",
-     "A zero-dependency CLI that fills a long build with terminal trivia, then hands back the output untouched."
+     "Terminal trivia while a slow build runs, now also a Claude Code plugin whose hooks open a companion pane while a tool call or subagent works."
     ]
    ]
   }
@@ -400,9 +400,7 @@
  "site_overrides": {
   "fourier-pen": "https://fourier-pen.vercel.app/"
  },
- "no_writeup": [
-  "downtime-cli"
- ],
+ "no_writeup": [],
  "evidence": [
   {
    "slug": "marathon-strategy-rag",
@@ -414,22 +412,58 @@
    "failure": "Asks for a missing input instead of answering; 42 of 42 is close to circular, since the targets come from the models it calls"
   },
   {
-   "slug": "wine-sommelier-rag",
-   "name": "Wine Sommelier RAG",
-   "evalset": "12 + 30 rubric queries, the 30 committed before the first run",
-   "result": "nDCG@10 0.76, against 0.59 for dense retrieval (30 queries)",
-   "cost": "$0 retrieval; $0.13 generation",
-   "latency": "Retrieval 196 ms median, 257 ms p95; answer 8.3 s median",
-   "failure": "Wrong grape or color (20) and an ignored price limit (19) account for half of the 76 missed slots"
+   "slug": "menu-decoder",
+   "name": "Menu Decoder (LoRA vs Claude)",
+   "evalset": "303 held-out dishes, plus 60 adversarial dishes hiding 123 allergens, frozen before the run",
+   "result": "False-safe 7.3% to 0.8% with the guard layers; hidden misses 22 to 0; Claude alone 1.7%",
+   "cost": "$0.18 per 1,000 dishes for the Haiku layer; Claude alone $56",
+   "latency": "Local 2.8 s median; Haiku 13 s per 10-dish batch",
+   "failure": "Over-warning up to 27%; one of three Haiku runs cleared hummus of sesame"
   },
   {
    "slug": "podcastify",
    "name": "Podcastify",
-   "evalset": "4 sources, 12 key points each, committed before generation",
-   "result": "7.4 of 12 key points, against 4.4 for rule mode; 8 of 172 lines unsupported",
-   "cost": "$0.35 per episode (n=1)",
-   "latency": "3 min 43 s per episode, half of it audio",
-   "failure": "The repair step did not lower the unsupported rate, and the two checkers disagree"
+   "evalset": "124 script lines, 56 broken by code so the answer is known, frozen before any judge ran",
+   "result": "Opus caught 56 of 56 broken lines; the pipeline's Sonnet checker 44 to 49; a three-judge vote 52",
+   "cost": "$0.0025 per line (Opus); $0.35 per episode",
+   "latency": "10.6 s median per 18-line batch; 3 min 43 s per episode",
+   "failure": "Sonnet forgives flipped negations, and a parser bug had left 33 lines unchecked (fixed)"
+  },
+  {
+   "slug": "fire-retirement-simulator",
+   "name": "Retirement what-if agent (MCP)",
+   "evalset": "30 questions with expected scenarios, frozen before any run",
+   "result": "28 of 30 end to end; headline matches the engine 19 of 20, against 3 of 20 for the bare model",
+   "cost": "$0.0087",
+   "latency": "7.7 s median, 9.5 s p95",
+   "failure": "A reply that dropped the what-if result passed, since nothing in it was invented"
+  },
+  {
+   "slug": "connection-odds",
+   "name": "Itinerary checker (MCP)",
+   "evalset": "30 synthetic itineraries in mixed formats, frozen before any run",
+   "result": "30 of 30 parsed; all 24 miss chances equal to the model's; bare model a median 9.4 points off",
+   "cost": "$0.0068",
+   "latency": "6.3 s median, 9.6 s p95",
+   "failure": "Replies said 'no chance' when they meant no figure"
+  },
+  {
+   "slug": "wine-sommelier-rag",
+   "name": "Wine Sommelier RAG",
+   "evalset": "30 rubric queries, plus 28 requests with stated limits, each set committed before its run",
+   "result": "Results breaking a stated limit: 77.5% to 0 with Sonnet extraction; nDCG@10 0.76 against 0.59 for dense retrieval",
+   "cost": "$0 retrieval; $0.053 extraction (Haiku $0.003)",
+   "latency": "Retrieval 196 ms median; extraction 2.4 s",
+   "failure": "A word filter for 'not oaky' drops unoaked Chardonnays; the regex extractor I wrote ties Sonnet on my own phrasing"
+  },
+  {
+   "slug": "wine-pairing-agent",
+   "name": "Wine Pairing Agent",
+   "evalset": "10 dishes, rubric and protocol frozen before the run",
+   "result": "Self-critique passes 10 of 10, against 0 for the old prompt; first pick an accepted grape 10 of 10, against 3 for search",
+   "cost": "$0.49 median",
+   "latency": "33.7 s median, 54.9 s p95",
+   "failure": "A second judge on Sonnet agreed on 6 of 10 verdicts (kappa 0.20)"
   },
   {
    "slug": "receipt-auditor",
@@ -441,13 +475,13 @@
    "failure": "Hardware and gasoline items, whose training labels themselves split two ways"
   },
   {
-   "slug": "menu-decoder",
-   "name": "Menu Decoder (LoRA vs Claude)",
-   "evalset": "303 dishes, held out by dish family",
-   "result": "Fine-tuned 69.3% allergen recall, against 79.2% for Claude with the full schema",
-   "cost": "$0 local; Claude $56 per 1,000 dishes",
-   "latency": "Local 6.5 s median; Claude 12.3 s median",
-   "failure": "Rare allergens: sulphites 0 of 11 found. Claude still wins here"
+   "slug": "one-in-a-hundred",
+   "name": "One in a Hundred (in-browser parser)",
+   "evalset": "200 questions frozen earlier, plus a 104-question dev split",
+   "result": "In-browser hybrid 66 of 104 on new wording against 58 for rules, but 172 of 200 against 181 on the frozen set",
+   "cost": "$0; 53 MB download once",
+   "latency": "4.9 ms median, 8.2 ms p95 in the browser",
+   "failure": "Stripping numbers before embedding also removed the words that name the measure"
   },
   {
    "slug": "skill-compass",
@@ -483,6 +517,296 @@
    "role": "Co-founder and Chief Strategy Officer",
    "org": "Casual Ace Learning Centre, Hong Kong",
    "text": "Grew from one location to eight with a geo-demographic demand model and A/B pricing tests: enrollment up 5.2 times, revenue 6.7 times, more than 1,000 students. Shipped the company's learning platform end to end, LLM tutor included, and led 28 staff."
+  }
+ ],
+ "proof": [
+  {
+   "slug": "marathon-strategy-rag",
+   "stat": "42 / 42",
+   "label": "numeric answers right when the coach calls my models as tools, against 14 for the bare model"
+  },
+  {
+   "slug": "menu-decoder",
+   "stat": "22 → 0",
+   "label": "hidden allergens missed on 60 adversarial dishes, after two guard layers that can only add a warning"
+  },
+  {
+   "slug": "receipt-auditor",
+   "stat": "90.5%",
+   "label": "a 1.5B model I fine-tuned on a laptop, against 80.0% for Claude zero-shot"
+  }
+ ],
+ "cases": [
+  {
+   "slug": "menu-decoder",
+   "label": "Guardrails",
+   "headline": "An allergen tagger that is only allowed to add warnings",
+   "media": {
+    "video": "assets/demos/menu-decoder.mp4",
+    "poster": "assets/demos/menu-decoder.jpg"
+   },
+   "figcap": "Dish inspector from the write-up: each allergen, its label, and what each guard layer raised.",
+   "problem": "A 1.5B model I fine-tuned to tag 14 allergens called a dish safe when it was not 7.3% of the time, and never flagged sulphites.",
+   "built": "Two layers behind it that can raise a warning but never lower one: a 541-word ingredient lexicon, then a Claude Haiku second opinion on whatever is still unflagged, schema-validated with a retry.",
+   "result": "Held-out false-safe 7.3% to 0.8%; hidden allergens missed on 60 adversarial dishes, frozen before the run, 22 to 0. The Haiku layer costs $0.18 per 1,000 dishes.",
+   "failure": "Over-warning rises to 27% on the adversarial set, and one of three Haiku runs cleared hummus of sesame.",
+   "next": "Human labels on the 840-row sheet in the repo, then distill Haiku's flags back into the small model.",
+   "methods": [
+    "Fine-tuning",
+    "Structured output",
+    "Red-team set",
+    "Cross-run variance"
+   ]
+  },
+  {
+   "slug": "podcastify",
+   "label": "Judge evaluation",
+   "headline": "Testing the fact-checkers on lines broken on purpose",
+   "media": {
+    "video": "assets/demos/podcastify.mp4",
+    "poster": "assets/demos/podcastify.jpg"
+   },
+   "figcap": "Span viewer from the write-up: a script line, the source sentences it cites, and each judge's verdict.",
+   "problem": "Every line of a generated podcast cites its source sentences and is checked before it is voiced, but my old sample had one failure in 20, so it could not measure misses.",
+   "built": "A frozen set of 124 lines, 56 of them broken by code (a flipped negation, a moved number, a swapped name), so the right answer is known without labeling. Eight judge runs across Haiku, Sonnet and Opus, plus the local checks.",
+   "result": "Opus caught 56 of 56 broken lines in both runs; my pipeline's Sonnet checker caught 44 to 49, missing only negations. A majority vote did worse than Opus alone.",
+   "failure": "A JSON parser bug had left 33 lines unchecked on one run; fixed. An earlier page called a model's reading a hand check; corrected with a dated note.",
+   "next": "Subtler model-written breaks, human labels, and a Haiku-then-Opus cascade.",
+   "methods": [
+    "LLM judge",
+    "Cohen's kappa",
+    "Grounding",
+    "Span viewer"
+   ]
+  },
+  {
+   "slug": "fire-retirement-simulator",
+   "label": "Agent and MCP",
+   "headline": "A retirement agent that is not allowed to do arithmetic",
+   "media": {
+    "video": "assets/demos/fire-retirement-simulator.mp4",
+    "poster": "assets/demos/fire-retirement-simulator.jpg"
+   },
+   "figcap": "Recorded run from the write-up: question, extracted scenario, engine call, checked answer.",
+   "problem": "People ask retirement questions in sentences, and a bare model answers them with numbers it made up.",
+   "built": "Claude fills a validated JSON scenario, code runs my 152-year simulation engine, and the reply is rejected if it holds any number the engine did not produce. The engine is also an MCP server.",
+   "result": "28 of 30 frozen questions right end to end; the headline answer matched the engine on 19 of 20, against 3 of 20 for the bare model, with 1 unsourced number in 300 against 127 in 289. $0.009 and 7.7 s a question.",
+   "failure": "One reply dropped the what-if result entirely; my check passes it, because nothing was invented.",
+   "next": "A check that every headline value appears in the reply, and human labels for the expected scenarios.",
+   "methods": [
+    "Structured output",
+    "Tool use",
+    "MCP server",
+    "Unsourced-number check"
+   ]
+  },
+  {
+   "slug": "wine-sommelier-rag",
+   "label": "RAG and in-browser search",
+   "headline": "Reading 'under twenty bucks' out of the sentence before ranking",
+   "media": {
+    "video": "assets/demos/wine-sommelier-rag.mp4",
+    "poster": "assets/demos/wine-sommelier-rag.jpg"
+   },
+   "figcap": "In-browser search from the write-up: MiniLM runs in the page, filters read from the request.",
+   "problem": "My hybrid retriever ignored plain-English limits: on 28 frozen requests, 77.5% of top-ten results broke a stated price, place or grape.",
+   "built": "A pydantic schema Claude fills, checked against the index's own vocabulary with one repair, applied as filters before dense, BM25 and reranking. The same search also runs in your browser on a self-hosted MiniLM.",
+   "result": "Limit-breaking results 77.5% to 0 with Sonnet ($0.05 a request) and 1.2% with Haiku ($0.003). The browser index matches the Python retriever on 8.8 of the top 10.",
+   "failure": "A regex extractor tied Sonnet, but I wrote both the rules and the requests; the 'not oaky' filter drops unoaked Chardonnays.",
+   "next": "Requests written by someone else, and wiring extraction into the command line.",
+   "methods": [
+    "RAG",
+    "Structured output",
+    "In-browser model",
+    "MCP server"
+   ]
+  },
+  {
+   "slug": "wine-pairing-agent",
+   "label": "Agent self-critique",
+   "headline": "A self-critique that never passed, rebuilt as a rubric",
+   "media": {
+    "video": "assets/demos/wine-pairing-agent.mp4",
+    "poster": "assets/demos/wine-pairing-agent.jpg"
+   },
+   "figcap": "Trace replay from the write-up: each node's timing, the tool call and the critique JSON.",
+   "problem": "My LangGraph pairing agent rejected all 12 of its own drafts, mostly for wines it judged too old as of 2026.",
+   "built": "A seven-criterion rubric: three checked in code, four graded by the model as schema-validated JSON, with the pass decided in code. Every run is saved and replayable node by node.",
+   "result": "10 of 10 frozen dishes pass, every first pick an accepted grape against 3 of 10 for plain search. Cost $1.25 to $0.49 and time 78 s to 34 s per pairing. It rejected 6 of 6 deliberately mismatched drafts.",
+   "failure": "A second judge on Sonnet agreed on only 6 of 10 verdicts (kappa 0.20), and caught a reply telling a guest about 'the Sancerre style you're after'.",
+   "next": "Human labels from the sheet in the repo, and a code check for claims against the cited review.",
+   "methods": [
+    "Agent",
+    "Structured output",
+    "LLM judge",
+    "Run traces"
+   ]
+  }
+ ],
+ "methods": {
+  "cols": [
+   "Agent + tools",
+   "MCP server",
+   "Structured output",
+   "RAG",
+   "Fine-tuning",
+   "LLM judge",
+   "Guardrails, red-team",
+   "In-browser model",
+   "Run traces",
+   "CI tests"
+  ],
+  "rows": [
+   {
+    "slug": "marathon-strategy-rag",
+    "marks": {
+     "Agent + tools": true,
+     "MCP server": true,
+     "RAG": true,
+     "LLM judge": true,
+     "Run traces": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "menu-decoder",
+    "marks": {
+     "Fine-tuning": true,
+     "Structured output": true,
+     "LLM judge": true,
+     "Guardrails, red-team": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "podcastify",
+    "marks": {
+     "LLM judge": true,
+     "Guardrails, red-team": true,
+     "Run traces": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "fire-retirement-simulator",
+    "marks": {
+     "Agent + tools": true,
+     "MCP server": true,
+     "Structured output": true,
+     "Run traces": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "connection-odds",
+    "marks": {
+     "Agent + tools": true,
+     "MCP server": true,
+     "Structured output": true,
+     "Run traces": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "wine-sommelier-rag",
+    "marks": {
+     "RAG": true,
+     "Structured output": true,
+     "MCP server": true,
+     "In-browser model": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "wine-pairing-agent",
+    "marks": {
+     "Agent + tools": true,
+     "RAG": true,
+     "Structured output": true,
+     "LLM judge": true,
+     "Run traces": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "marathon-training-agent",
+    "marks": {
+     "Agent + tools": true,
+     "LLM judge": true
+    }
+   },
+   {
+    "slug": "one-in-a-hundred",
+    "marks": {
+     "In-browser model": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "downtime-cli",
+    "marks": {
+     "Agent + tools": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "receipt-auditor",
+    "marks": {
+     "Fine-tuning": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "cellar-scanner",
+    "marks": {
+     "Fine-tuning": true,
+     "RAG": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "race-day-copilot",
+    "marks": {
+     "Fine-tuning": true,
+     "RAG": true,
+     "LLM judge": true,
+     "CI tests": true
+    }
+   },
+   {
+    "slug": "skill-compass",
+    "marks": {
+     "Guardrails, red-team": true,
+     "CI tests": true
+    }
+   }
+  ]
+ },
+ "changelog": [
+  {
+   "date": "2026-11-13",
+   "when": "13 Nov 2026",
+   "html": "Ten projects upgraded: guard layers and an adversarial set for Menu Decoder, judges tested on deliberately broken lines for Podcastify, agents that call my own models for the retirement and connection tools (both also MCP servers), constraint extraction and in-browser search for Wine RAG, a rubric critic for the pairing agent, an in-browser parser for One in a Hundred, a Claude Code plugin for downtime, plus red-teaming and schema-checked plans for the two marathon agents. Every project has a demo video."
+  },
+  {
+   "date": "2026-11-05",
+   "when": "5 Nov 2026",
+   "html": "Tests on GitHub Actions for 13 repos; fresh-clone runs of 25 READMEs fixed; cost and latency measured for the agents and the fine-tuning series."
+  },
+  {
+   "date": "2026-11-04",
+   "when": "4 Nov 2026",
+   "html": "Result-first write-ups with error analysis; Wine RAG re-evaluated on 30 new frozen queries, and an earlier claim about BM25 fusion withdrawn."
+  },
+  {
+   "date": "2026-10-29",
+   "when": "29 Oct 2026",
+   "html": "Audit of three new studies: a duplicated source file and a wrong API date found and fixed, with dated notes on the pages."
+  },
+  {
+   "date": "2026-10-28",
+   "when": "28 Oct 2026",
+   "html": "Six studies rebuilt into tools: a pacing predictor tested on Boston 2024, an 80-race heat model, a record-survival model backtested on 2011 to 2025, and the tool-calling coach with its MCP server."
   }
  ]
 }

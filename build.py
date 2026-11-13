@@ -48,6 +48,46 @@ def feat(i, s):
 
 selected = "".join(feat(i, s) for i, s in enumerate(data["selected"], 1))
 
+# Case studies (2026-11-13): one row per flagship, figure or demo video beside a short
+# problem / built / result / failure / next list.
+def media(c):
+    m = c.get("media", {})
+    if m.get("video"):
+        return (f'<video controls preload="none" playsinline poster="{m["poster"]}" width="1280" height="800" '
+                f'aria-label="{e(c["figcap"])}"><source src="{m["video"]}" type="video/mp4"></video>')
+    src = m.get("img", f'{MED}{c["slug"]}.jpg')
+    return f'<a href="{site(c["slug"])}overview/" tabindex="-1" aria-hidden="true"><img src="{src}" alt="" loading="lazy" width="1000" height="625"></a>'
+
+def case(i, c):
+    rows = "".join(f'<dt>{k}</dt><dd>{e(c[key])}</dd>' for k, key in
+                   (("Problem", "problem"), ("Built", "built"), ("Result", "result"), ("Failure", "failure"), ("Next", "next")) if c.get(key))
+    meth = "".join(f'<li>{e(m)}</li>' for m in c.get("methods", []))
+    return (f'<article class="case" id="w-{c["slug"]}"><figure class="case-fig">{media(c)}<figcaption>{e(c["figcap"])}</figcaption></figure>'
+            f'<div class="case-text"><p class="kicker"><span class="no">{i:02d}</span> {e(c["label"])} {tag(c["slug"])}</p>'
+            f'<h3><a href="{site(c["slug"])}overview/">{e(c["headline"])}</a></h3><p class="name">{e(NAMES[c["slug"]])}</p>'
+            f'<dl class="cdl">{rows}</dl><ul class="meth" aria-label="Methods">{meth}</ul>{links(c["slug"])}</div></article>')
+
+cases = "".join(case(i, c) for i, c in enumerate(data.get("cases", []), 1))
+
+# Methods matrix: which project shows which technique, each mark linking to the evidence.
+M = data.get("methods", {"cols": [], "rows": []})
+mcols = M["cols"]
+mhead = "".join(f'<th scope="col"><button type="button" data-col="{j}" aria-pressed="false">{e(c)}</button></th>' for j, c in enumerate(mcols))
+def mcell(j, v):
+    if not v:
+        return f'<td data-col="{j}"><span class="vh">no</span></td>'
+    href = v if isinstance(v, str) else None
+    mark = '<span class="mk" aria-hidden="true"></span><span class="vh">yes</span>'
+    return f'<td data-col="{j}" class="on">' + (f'<a href="{href}" title="{e(mcols[j])}: see the evidence">{mark}</a>' if href else mark) + '</td>'
+mrows = "".join(
+    f'<tr><th scope="row"><a href="{site(r["slug"])}overview/">{e(NAMES[r["slug"]])}</a></th>'
+    + "".join(mcell(j, r["marks"].get(c)) for j, c in enumerate(mcols)) + '</tr>' for r in M["rows"])
+mcount = {c: sum(1 for r in M["rows"] if r["marks"].get(c)) for c in mcols}
+
+proof = "".join(f'<li><a href="{site(p["slug"])}overview/"><span class="v">{e(p["stat"])}</span><span class="l">{e(p["label"])}</span></a></li>'
+                for p in data.get("proof", []))
+changelog = "".join(f'<li><time datetime="{c["date"]}">{e(c["when"])}</time><p>{c["html"]}</p></li>' for c in data.get("changelog", []))
+
 S = data["series"]
 sup = lambda m: f"<sup>{m}</sup>" if m else ""
 series_rows = "".join(
@@ -147,9 +187,9 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <a class="brand" href="{SITE}">Jeremy Lee</a>
     <nav aria-label="Page">
       <a href="#work">Work</a>
+      <a class="opt" href="#methods">Methods</a>
       <a class="opt" href="#evals">Evals</a>
       <a class="opt" href="#experience">Experience</a>
-      <a class="opt" href="#series">Fine-tuning</a>
             <a href="#index">Index</a>
       <a href="#about">About</a>
       <button type="button" id="theme-toggle" hidden aria-pressed="false">Dark</button>
@@ -162,8 +202,9 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
   <div class="hero-text">
     <p class="eyebrow">AI engineer · Los Angeles, open to relocation</p>
     <h1>Jeremy Lee</h1>
-    <p class="lede">I build LLM systems and the evals that show whether they work: a frozen test set, a baseline, the cost and latency of every answer, and the failures written down. There are {n} projects here, each with a live site, and {nw} with a write-up.</p>
+    <p class="lede">I build LLM systems and the evals that show whether they work: a frozen test set, a baseline, the cost and latency of every answer, and the failures written down.</p>
     <p class="sub">Most recently I led a natural-language analytics platform on Claude and MCP at Kandu, a stroke-recovery health company. Before that: data scientist at InstaAgent (Y Combinator), and nine years as co-founder and Chief Strategy Officer of an education company that grew enrollment 5.2 times. MSBA at UCLA Anderson, December 2026.</p>
+    <ul class="proof" aria-label="Three results">{proof}</ul>
     <p class="contact"><a class="btn primary" href="mailto:lyhjeremy@gmail.com">Email me</a><a class="btn" href="{RESUME}">Resume (PDF)</a><a class="btn" href="https://www.linkedin.com/in/lyhjeremy/">LinkedIn</a><a class="btn" href="https://github.com/lyhjeremy">GitHub</a></p>
   </div>
   <figure class="course">
@@ -179,8 +220,16 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 </section>
 
 <section class="wrap featured" id="work">
-  <div class="head"><p class="eyebrow">Selected work</p><h2>Five to start with</h2></div>
-  <div class="feats">{selected}</div>
+  <div class="head"><p class="eyebrow">Case studies</p><h2>{len(data.get("cases", []))} systems, each with its eval and its failure</h2><p class="intro">Each one names the problem, what I built, the measured result against a baseline, the failure I found, and what I would do next. The full write-up behind each has the test set, the raw outputs and the code.</p></div>
+  <div class="cases">{cases}</div>
+</section>
+
+<section class="wrap block" id="methods">
+  <div class="head"><p class="eyebrow">Methods</p><h2>Where each technique is used</h2><p class="intro">A filled square means the project's write-up shows that technique with a measured result. Pick a column to see only those projects.</p></div>
+  <div class="scroll"><table class="matrix">
+    <thead><tr><th scope="col">Project</th>{mhead}</tr></thead>
+    <tbody>{mrows}</tbody>
+  </table></div>
 </section>
 
 <section class="wrap block" id="evals">
@@ -190,6 +239,11 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
     <tbody>{evidence_rows}</tbody>
   </table></div>
   <p class="notes small">Cost is the API-equivalent price reported by the Claude CLI; local-model timings are on an Apple M4 laptop. n is given where it is small.</p>
+</section>
+
+<section class="wrap block" id="log">
+  <div class="head"><p class="eyebrow">Changelog</p><h2>Recent work on these projects</h2><p class="intro">Dated changes, newest first. Corrections are listed with the upgrades.</p></div>
+  <ol class="log">{changelog}</ol>
 </section>
 
 <section class="wrap block" id="experience">
@@ -215,7 +269,7 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 
 <section class="wrap block" id="index">
   <div class="head"><p class="eyebrow">Index</p><h2>All {n} projects</h2>
-  <p class="intro">Each project site has its own look, in one of five families. Pick a family to narrow the list.</p>
+  <p class="intro">{n} projects, each with a live site and {nw} with a write-up. Each site has its own look, in one of five families. Pick a family to narrow the list.</p>
   <div class="legend" role="group" aria-label="Show one family" hidden>{legend}</div></div>
   {index}
 </section>
@@ -254,6 +308,15 @@ try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.doc
 </footer>
 
 <script>
+(function(){{
+  var t=document.querySelector(".matrix");if(!t)return;var cur=null;
+  t.querySelector("thead").addEventListener("click",function(ev){{
+    var b=ev.target.closest("button");if(!b)return;var c=b.getAttribute("data-col");cur=(cur===c)?null:c;
+    t.querySelectorAll("thead button").forEach(function(x){{x.setAttribute("aria-pressed",x.getAttribute("data-col")===cur?"true":"false");}});
+    t.querySelectorAll("tbody tr").forEach(function(tr){{tr.hidden=cur!==null&&!tr.querySelector('td[data-col="'+cur+'"].on');}});
+    t.classList.toggle("filtered",cur!==null);t.setAttribute("data-col",cur||"");
+  }});
+}})();
 (function(){{
   var root=document.documentElement,btn=document.getElementById("theme-toggle");
   function dark(){{var t=root.getAttribute("data-theme");return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;}}
