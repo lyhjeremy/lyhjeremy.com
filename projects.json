@@ -290,7 +290,7 @@
    "slug": "podcastify",
    "label": "Grounded generation",
    "headline": "A two-host episode where every claim cites its source",
-   "text": "Podcastify turns a whole book or article into a two-host episode. Each factual line carries the ids of the sentences it rests on and is checked before it is voiced. Across four sources it covered 7.4 of 12 frozen key points against 4.4 for a rule-based script. An independent Opus check found 8 of 172 lines not fully supported, and the repair step did not lower that, which the page says plainly.",
+   "text": "Podcastify turns a whole book or article into a two-host episode. Each factual line carries the ids of the sentences it rests on and is checked before it is voiced. Across four sources it covered 7.4 of 12 frozen key points against 4.4 for a rule-based script. Its fact-checkers were then tested on 56 lines broken on purpose: Opus caught all 56.",
    "figcap": "Key-point coverage and unsupported lines, by source."
   },
   {
@@ -332,7 +332,7 @@
     "name": "Menu Decoder",
     "task": "Cuisine and 14 allergen tags from a bare dish name",
     "ft": "99.3% cuisine, 69.3% allergen recall",
-    "claude": "79.2% allergen recall",
+    "claude": "79.3% allergen recall",
     "mark": "c"
    },
    {
@@ -426,7 +426,7 @@
    "evalset": "124 script lines, 56 broken by code so the answer is known, frozen before any judge ran",
    "result": "Opus caught 56 of 56 broken lines; the pipeline's Sonnet checker 44 to 49; a three-judge vote 52",
    "cost": "$0.0025 per line (Opus); $0.35 per episode",
-   "latency": "10.6 s median per 18-line batch; 3 min 43 s per episode",
+   "latency": "10.6 s median per judge call (124 lines in 8 calls); 3 min 43 s per episode",
    "failure": "Sonnet forgives flipped negations, and a parser bug had left 33 lines unchecked (fixed)"
   },
   {
@@ -578,7 +578,7 @@
    "figcap": "Span viewer from the write-up: a script line, the source sentences it cites, and each judge's verdict.",
    "problem": "Every line of a generated podcast cites its source sentences and is checked before it is voiced, but my old sample had one failure in 20, so it could not measure misses.",
    "built": "A frozen set of 124 lines, 56 of them broken by code (a flipped negation, a moved number, a swapped name), so the right answer is known without labeling. Eight judge runs across Haiku, Sonnet and Opus, plus the local checks.",
-   "result": "Opus caught 56 of 56 broken lines in both runs; my pipeline's Sonnet checker caught 44 to 49, missing only negations. A majority vote did worse than Opus alone.",
+   "result": "Opus caught 56 of 56 broken lines in both runs; my pipeline's Sonnet checker caught 44 to 49 across three runs, and every miss in its first run was a flipped negation. A majority vote did worse than Opus alone.",
    "failure": "A JSON parser bug had left 33 lines unchecked on one run; fixed. An earlier page called a model's reading a hand check; corrected with a dated note.",
    "next": "Subtler model-written breaks, human labels, and a Haiku-then-Opus cascade.",
    "methods": [
@@ -763,7 +763,6 @@
     "slug": "marathon-training-agent",
     "marks": {
      "Agent + tools": true,
-     "LLM judge": true,
      "Structured output": true,
      "MCP server": true,
      "CI tests": true
@@ -779,7 +778,6 @@
    {
     "slug": "downtime-cli",
     "marks": {
-     "Agent + tools": true,
      "CI tests": true
     }
    },
