@@ -257,7 +257,7 @@ figcaption{font-size:.8rem;color:var(--ink-2);margin-top:8px}
 .proof .v{font:400 1.45rem/1.1 var(--font-mono);color:var(--signal)}
 .cases{border-top:2px solid var(--ink)}
 .case{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:44px;padding:40px 0;border-bottom:1px solid var(--rule);align-items:start}
-.case-fig{margin:0}
+.case-fig{margin:0;position:sticky;top:76px}
 .case-fig a,.case-fig video{display:block;border:1px solid var(--rule);background:var(--panel);line-height:0;width:100%;height:auto}
 .case-fig img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
 .case .no{color:var(--signal);margin-right:8px}
@@ -290,7 +290,7 @@ figcaption{font-size:.8rem;color:var(--ink-2);margin-top:8px}
 .log li{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--rule)}
 .log time{font:400 .85rem/1.6 var(--font-mono);color:var(--ink-2)}
 .log p{margin:0}
-@media (max-width:900px){.case{grid-template-columns:1fr;gap:20px}}
+@media (max-width:900px){.case{grid-template-columns:1fr;gap:20px}.case-fig{position:static}}
 @media (max-width:600px){
   .proof a{grid-template-columns:1fr;gap:2px}
   .case h3{font-size:1.4rem}

@@ -123,7 +123,7 @@
     [
      "marathon-strategy-rag",
      "Marathon Strategy RAG",
-     "A coach that calls my pace and heat models as tools, also served over MCP. On 42 frozen numeric checks it got 42 right, against 21 for plain RAG and 14 for the bare model."
+     "A coach that calls my pace and heat models as tools, also an MCP server: 42 of 42 frozen numeric checks against 14 for the bare model, plus a red-team set and reruns."
     ],
     [
      "wine-pairing-agent",
@@ -133,7 +133,7 @@
     [
      "marathon-training-agent",
      "Marathon Training Agent",
-     "A LangGraph agent that drafts a training plan and keeps revising it until it passes explicit safety checks."
+     "A LangGraph planner rebuilt on schema-validated plans: 6 of 6 pass every check with no length drift, against 1 of 6 for its old critique loop."
     ]
    ]
   },
@@ -405,11 +405,11 @@
   {
    "slug": "marathon-strategy-rag",
    "name": "Marathon strategy coach (tools, MCP)",
-   "evalset": "43 questions, 42 numeric targets, frozen by hash before any run",
-   "result": "42 of 42, against 21 for RAG and 14 for the bare model",
+   "evalset": "43 questions with 42 numeric targets, frozen by hash; 15 red-team cases frozen before their run",
+   "result": "42 of 42, against 21 for RAG and 14 for the bare model; 0 of 15 attacks worked, before or after the new guard; 12 of 12 values right across reruns",
    "cost": "$0.017 median",
    "latency": "8.4 s median, 14.6 s p95 (n=11)",
-   "failure": "Asks for a missing input instead of answering; 42 of 42 is close to circular, since the targets come from the models it calls"
+   "failure": "42 of 42 is close to circular, since the targets come from the models it calls; strict rules scored refusals as attacks"
   },
   {
    "slug": "menu-decoder",
@@ -428,6 +428,15 @@
    "cost": "$0.0025 per line (Opus); $0.35 per episode",
    "latency": "10.6 s median per 18-line batch; 3 min 43 s per episode",
    "failure": "Sonnet forgives flipped negations, and a parser bug had left 33 lines unchecked (fixed)"
+  },
+  {
+   "slug": "marathon-training-agent",
+   "name": "Marathon Training Agent (schema)",
+   "evalset": "6 runners, frozen before the run",
+   "result": "6 of 6 plans pass every check, against 1 of 6 for the old loop; wrong plan lengths 0 against 3",
+   "cost": "$0.10 median",
+   "latency": "47 s median, 66 s p95",
+   "failure": "First drafts broke the note-length limit 4 times in 6"
   },
   {
    "slug": "fire-retirement-simulator",
@@ -580,6 +589,27 @@
    ]
   },
   {
+   "slug": "marathon-training-agent",
+   "label": "Structured output",
+   "headline": "A plan agent that kept stretching 10-week plans to 18",
+   "media": {
+    "video": "assets/demos/marathon-training-agent.mp4",
+    "poster": "assets/demos/marathon-training-agent.jpg"
+   },
+   "figcap": "Weekly miles per runner from the write-up, race day marked, structured plans against the original loop.",
+   "problem": "My LangGraph planner's critique-and-revise loop drifted: an 18-week plan for a runner with 10 weeks, and two different fitness reads for the same runner.",
+   "built": "A pydantic plan schema with typed sessions for every day, code checks for what a schema cannot express (week count, race week, phases), errors sent back for up to two repairs, and the fitness read moved from the model to a Riegel calculation. The checks are also an MCP server.",
+   "result": "On six runners frozen before the run: 6 of 6 plans pass every check against 1 of 6, no wrong lengths against 3, at $0.10 instead of $0.22 a plan and 47 s instead of 114 s.",
+   "failure": "Four of six first drafts broke my own 120-character note limit, which caused most of the repairs. Six runners and one run each shows the failure going away, not a pass rate.",
+   "next": "Validate the Riegel read on real race pairs and add back a check on long-run share.",
+   "methods": [
+    "Structured output",
+    "Agent",
+    "MCP server",
+    "Code checks"
+   ]
+  },
+  {
    "slug": "fire-retirement-simulator",
    "label": "Agent and MCP",
    "headline": "A retirement agent that is not allowed to do arithmetic",
@@ -665,7 +695,8 @@
      "RAG": true,
      "LLM judge": true,
      "Run traces": true,
-     "CI tests": true
+     "CI tests": true,
+     "Guardrails, red-team": true
     }
    },
    {
@@ -732,7 +763,10 @@
     "slug": "marathon-training-agent",
     "marks": {
      "Agent + tools": true,
-     "LLM judge": true
+     "LLM judge": true,
+     "Structured output": true,
+     "MCP server": true,
+     "CI tests": true
     }
    },
    {
